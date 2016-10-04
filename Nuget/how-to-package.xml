@@ -15,4 +15,4 @@
 
 #How to install the package
 
-1. In VS, run "Install-Package Pipeline -Source C:\Path\To\Package\Containing\Folder" in the Package Manager Console.
+1. In VS, run "Install-Package PipelineCRM -Source C:\Path\To\Package\Containing\Folder" in the Package Manager Console.

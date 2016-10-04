@@ -18,7 +18,7 @@ In Visual Studio, open up the Package Manager Console and type the following:
 
 If you would rather build PipelineCRM locally and install from the created files, follow the build guide below, followed by running the following in the Package Manager Console (in Visual Studio):
 
-```install-package GrowCreate.PipelineCRM <project name> --source C:\path\to\nupkg\containing\folder```
+```install-package GrowCreate.PipelineCRM <project name> -source C:\path\to\nupkg\containing\folder```
 
 ## How to build
 
