@@ -1,0 +1,24 @@
+﻿<div class="umb-panel pipeline" ng-controller="Pipeline.Dialogs.Summary">
+    <div class="umb-modalcolumn-header">
+        <h1>{{ dialogData.Name }}</h1>
+        <div class="labels">
+            <div class="card-label pull-right" ng-click="toggleLabel(label)" ng-repeat="label in Labels" ng-class="dialogData.LabelIds.indexOf(label.Id) > -1 ? 'selected' : ''" style="background-color:{{ label.Value }}"></div>
+        </div>
+    </div>
+    
+    <div class="umb-panel-body with-header with-footer no-margin">
+        <pipeline-timeline tasks="dialogData.Tasks" summary="true" parent-type="'pipeline'" parent="dialogData"></pipeline-timeline>
+    </div>
+    
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <a href data-ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel"></localize>
+                </a>
+                <a ng-click="archive()" class="btn btn-attention" href=""><localize key="delete"></localize></a>
+                <a data-ng-click="close()" href="#/pipelineCrm/pipelineCrmTree/edit/{{ dialogData.Id }}" class="btn btn-success"><localize key="pipeline_edit">Edit</localize></a>
+            </div>
+        </div>
+    </div>
+</div>

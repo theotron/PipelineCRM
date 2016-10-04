@@ -1,0 +1,83 @@
+﻿<div class="umb-pane" ng-controller="Pipeline.Grid">
+
+    <div class="umb-sub-header" ng-hide="!results.length && !searchFilter && !statusId">
+        <a href="#/pipelineCrm/pipelineCrmTree/edit/-1?create" class="btn btn-success" ng-if="statusId != -1"><localize key="add">Add</localize> <localize key="pipeline_opportunity">Opportunity</localize></a>
+        <div class="btn-group" ng-if="statusId != -1" ng-class="{disabled: !anySelected()}">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><localize key="actions_move">Move</localize> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="status in Statuses"><a href="" ng-click="changeSelected(status)">{{ status.Name }}</a></li>
+                <li class="divider"></li>
+                <li><a href="" ng-click="changeSelected(-1)"><localize key="actions_delete">Delete</localize></a></li>
+            </ul>
+        </div>
+        <button class="btn btn-success" ng-click="changeSelected(0)" ng-if="statusId == -1" ng-class="{disabled: !anySelected()}"><localize key="pipeline_restore">Restore</localize></button>
+        <button class="btn btn-danger" ng-click="deleteSelected()" ng-if="statusId == -1" ng-class="{disabled: !anySelected()}"><localize key="pipeline_deletePermanently">Delete</localize></button>
+        
+        <form class="form-search pull-right ng-pristine ng-valid" novalidate="">
+            <div class="inner-addon left-addon">
+                <i class="icon icon-search"></i>
+                <input type="text" class="form-control ng-pristine ng-valid" localize="placeholder" placeholder="Type to search..." ng-model="searchFilter" prevent-enter-submit="" no-dirty-check="" ng-change="search(searchFilter)">
+            </div>
+        </form>
+    </div>
+
+    <div class="umb-listview" ng-if="loaded">
+        <table class="table table-striped" ng-if="results.length">
+            <thead>
+                <tr>
+                    <th style="width:25px" ng-if="statusId"><input type="checkbox" ng-model="isSelectedAll" ng-click="selectAll()" /></th>
+                    <th ng-click="order('Name')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Name'"></i><localize key="name"></localize></th>
+                    <th><localize key="pipeline_contact"></localize></th>
+                    <th><localize key="pipeline_organisation"></localize></th>
+                    <th ng-click="order('Value')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Value'"></i><localize key="pipeline_value"></localize></th>
+                    <th ng-click="order('Probability')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Probability'"></i><localize key="pipeline_probability"></localize></th>
+                    <th><localize key="pipeline_adjustedValue"></localize></th>
+                    <th ng-click="order('DateComplete')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'DateComplete'"></i><localize key="pipeline_completeDate"></localize></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="pipeline in results">
+                <tr ng-if="!pipeline.Obscured">
+                    <td ng-if="statusId">
+                        <i class="icon icon-dashboard" ng-show="!pipeline.selected"></i>
+                        <input type="checkbox" ng-model="pipeline.selected" ng-class="{ 'checked' : pipeline.selected }" />
+                    </td>
+                    <td><a href="#/pipelineCrm/pipelineCrmTree/edit/{{ pipeline.Id }}">{{ pipeline.Name }}</a></td>
+                    <td><a ng-if="pipeline.ContactId" href="#/pipelineCrm/pipelineCrmTree/contact.edit/{{ pipeline.ContactId }}">{{ pipeline.Contact.Name }}</a>&nbsp;</td>
+                    <td><a ng-if="pipeline.OrganisationId" href="#/pipelineCrm/pipelineCrmTree/organisation.edit/{{ pipeline.OrganisationId }}">{{ pipeline.Organisation.Name }}</a>&nbsp;</td>
+                    <td>{{ pipeline.Value | currency }}</td>
+                    <td>{{ pipeline.Probability }}%</td>
+                    <td>{{ pipeline | adjustedValue | currency }}</td>
+                    <td>{{ pipeline.DateComplete | date : 'dd/MM/yyyy' }}</td>
+                </tr>
+                <tr ng-if="pipeline.Obscured">
+                    <td ng-if="statusId">&nbsp;</td>
+                    <td class="obscured" colspan="5"><a class="obscured" href="#/pipelineCrm/pipelineCrmTree/edit/{{ pipeline.Id }}">{{ pipeline.Name }}</a></td>
+                </tr>
+            </tbody>
+            <tfoot ng-show="totalPages > 1">
+                <tr>
+                    <th colspan="8">
+                        <div class="pagination pagination-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 1}">
+                                    <a href ng-click="prevPage()">Prev</a>
+                                </li>
+                                <li ng-class="{active: currentPage == $index+1 }" ng-repeat="i in getNumber(totalPages) track by $index" ng-click="setPage($index+1)"><span>{{$index+1}}</span></li>
+                                <li ng-class="{disabled: currentPage == totalPages}">
+                                    <a href ng-click="nextPage()">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>        
+    </div>
+    <div ng-if="loaded && (!results || results.length == 0)" class="center">
+        <button ng-if="!statusId" prevent-default onclick="location.href='#/pipelineCrm/pipelineCrmTree/edit/-1?create'" class="btn btn-large big-plus"><i class="icon-add icon-th-large"></i></button>
+        <h5 class="center"><localize key="pipeline_notFound">No items found.</localize></h5>
+    </div>
+    <div ng-if="!loaded" class="center">
+        <h5 class="center"><localize key="general_loading">Loading</localize>...</h5>
+    </div>
+</div>

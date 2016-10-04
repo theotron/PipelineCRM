@@ -1,0 +1,51 @@
+﻿<div class="umb-panel" ng-controller="Pipeline.Dialogs.ShareTask">
+    <div class="umb-modalcolumn-header">
+        <h1><localize key="pipeline_share"></localize> <localize key="pipeline_task"></localize></h1>
+    </div>
+    <div class="umb-panel-body with-header with-footer">
+        <form class="form-group row-fluid" val-form-manager>
+            <umb-control-group label="@pipeline_permissions">
+                <ul class="unstyled">
+                    <li ng-repeat="permission in permissions">
+                        <label class="radio">
+                            <input type="radio" name="radiobuttons-permissions"
+                                   value="{{permission.id}}"
+                                   ng-model="task.Permissions" />
+                            {{permission.name}}
+                        </label>
+                    </li>
+                </ul>
+            </umb-control-group>            
+            <h5>Share via email</h5>
+            <div class="control-group umb-control-group checkbox">
+                <label>
+                    <input type="checkbox" ng-model="email.Trail" />
+                    <localize key="pipeline_trail"></localize>
+                </label>
+            </div>
+            <umb-control-group label="@pipeline_recipients">
+                <input type="text" ng-model="email.Recipients" />
+            </umb-control-group>
+            <umb-control-group label="@pipeline_subject">
+                <input type="text" ng-model="email.Subject" />
+            </umb-control-group>            
+            <umb-control-group label="@pipeline_body">
+                <textarea ng-model="dialogData.Description" />
+            </umb-control-group>
+            <button class="btn btn-primary"
+                    data-ng-click="send()">
+                <localize key="buttons_send"></localize>
+            </button>            
+        </form>
+    </div>
+
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <a href data-ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel"></localize>
+                </a>                
+            </div>
+        </div>
+    </div>
+</div>

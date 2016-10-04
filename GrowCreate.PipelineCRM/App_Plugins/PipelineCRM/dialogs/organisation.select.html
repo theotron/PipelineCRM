@@ -1,0 +1,33 @@
+﻿<div class="umb-panel" ng-controller="Pipeline.Dialogs.SelectOrganisations">
+    <div class="umb-modalcolumn-header">
+        <h5><localize key="general_search"></localize> <localize key="pipeline_organisations"></localize></h5>
+        <div class="form-search">
+            <i class="icon-search"></i>
+            <input type="text" ng-model="searchTerm" class="umb-search-field search-query ng-pristine ng-valid" placeholder="Filter...">
+        </div>
+    </div>
+    <div class="umb-panel-body with-header with-footer">
+        <br />
+        <ul class="unstyled">
+            <li ng-repeat="org in organisations | orderBy: org.Name">
+                <label class="checkbox">
+                    <input type="checkbox" ng-click="toggle(org)" ng-checked="isSelected(org)" />
+                    {{org.Name}}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <a href data-ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel"></localize>
+                </a>
+                <button class="btn btn-primary"
+                        data-ng-click="submit(dialogData)">
+                    <localize key="buttons_save"></localize>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

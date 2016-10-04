@@ -1,0 +1,35 @@
+﻿<div class="umb-panel" ng-controller="Pipeline.Dialogs.SelectContacts">
+    <div class="umb-modalcolumn-header">
+        <div class="span6">
+            <h5><localize key="general_search"></localize> <localize key="pipeline_contacts"></localize></h5>
+            <div class="form-search">
+                <i class="icon-search"></i>
+                <input type="text" ng-model="searchTerm" class="umb-search-field search-query ng-pristine ng-valid" placeholder="Filter...">
+            </div>
+        </div>        
+    </div>
+    <div class="umb-panel-body with-header with-footer">
+        <br />
+        <ul class="unstyled">
+            <li ng-repeat="contact in unassigned | orderBy: contact.Name">
+                <label class="checkbox">
+                    <input type="checkbox" ng-click="toggle(contact)" ng-checked="isSelected(contact)" />
+                    {{contact.Name}}
+                </label>
+            </li>
+        </ul>
+    </div>
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <a href data-ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel"></localize>
+                </a>
+                <button class="btn btn-primary"
+                        data-ng-click="submit(dialogData)">
+                    <localize key="buttons_save"></localize>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

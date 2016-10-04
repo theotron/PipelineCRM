@@ -1,0 +1,21 @@
+﻿<form class="pipeline" name="pipelineForm" ng-controller="Pipeline.Contact.Browse">
+    <umb-panel>
+        <umb-header>
+            <div class="span7">
+                <h1>{{ content.title }} <localize key="pipeline_contacts"></localize></h1>
+            </div>
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <umb-options-menu ng-show="currentNode" current-node="currentNode" current-section="{{currentSection}}"></umb-options-menu>
+                </div>
+            </div>
+        </umb-header>
+
+        <div class="umb-panel-body">
+            <div class="umb-pane">
+                <pipeline-grid type="'C'" status-id="content.typeId" template-url="grid_contacts.html"></pipeline-grid>
+            </div>
+        </div>
+
+    </umb-panel>
+</form>

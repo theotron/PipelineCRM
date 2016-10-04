@@ -1,0 +1,124 @@
+﻿<form class="pipeline"
+      name="contactForm"
+      ng-controller="Pipeline.ContactEditController"
+      ng-show="loaded"
+      ng-submit="save(contact)"
+      val-form-manager>
+
+    <umb-panel>
+        <umb-header>
+
+            <div class="span7">
+                <umb-content-name placeholder="@placeholders_entername" ng-model="contact.Name" />
+            </div>
+
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <umb-options-menu ng-show="currentNode"
+                                      current-node="currentNode"
+                                      current-section="{{currentSection}}">
+                    </umb-options-menu>*
+                    <div class="btn-group">
+                        <a class="btn" href="#" prevent-default data-toggle="dropdown">
+                            <localize key="general_actions" class="ng-isolate-scope ng-scope">Actions</localize>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu umb-actions" role="menu">
+                            <li><a href="" prevent-default ng-click="archiveContact()" ng-if="!contact.Archived && !content.isCreate"><i class="icon icon-delete"></i><span class="menu_label"><localize key="actions_delete"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="restoreContact()" ng-if="contact.Archived && !content.isCreate"><i class="icon icon-undo"></i><span class="menu_label"><localize key="pipeline_restore"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="deleteContact()" ng-if="contact.Archived"><i class="icon icon-delete"></i><span class="menu_label"><localize key="pipeline_deletePermanently"></localize></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs umb-nav-tabs span12">
+                <li ng-repeat="tab in content.tabs" ng-class="{active: $first}">
+                    <a href="#tab{{ tab.id }}" data-toggle="tab">{{ tab.label }}</a>
+                </li>
+            </ul>
+
+        </umb-header>
+
+        <umb-tab-view>
+
+            <umb-tab id="tab1" rel="contacts">
+                <div class="umb-pane">
+
+                    <umb-control-group label="@pipeline_type" description="@pipeline_typeHelp">
+                        <select ng-model="contact.TypeId" ng-options="type.Id as type.Name for type in ContactTypes"></select>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_title" description="@pipeline_typeHelp">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="contact.Title" />
+                    </umb-control-group>
+                    <umb-control-group label="@pipeline_organisations" description="@pipeline_organisationsHelp">
+                        <ul class="unstyled list-icons" ng-if="contact.Organisations.length > 0">
+                            <li ng-repeat="org in contact.Organisations">
+                                <i class="icon icon-delete red hover-show pull-right" ng-click="removeOrganisation(org)"></i>
+                                <i class="icon icon-users hover-hide"></i>
+                                <a href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ org.Id }}"><i class="icon-umb-content"></i>{{ org.Name }}</a>
+                            </li>
+                        </ul>
+                        <p>
+                            <a href ng-click="addOrganisation()" prevent-default><i class="icon icon-add blue"></i> <localize key="add"></localize></a>
+                            <a href ng-click="selectOrganisation()" prevent-default><i class="icon icon-add blue"></i> <localize key="buttons_select"></localize></a>
+                        </p>
+                    </umb-control-group>
+                    <umb-control-group label="@pipeline_email" description="@pipeline_emailHelp">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="contact.Email" required />
+                    </umb-control-group>
+                    <umb-control-group label="@pipeline_telephone" description="@pipeline_telephoneHelp">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="contact.Telephone" />
+                    </umb-control-group>
+                    <umb-control-group label="@pipeline_mobile" description="@pipeline_mobileHelp">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="contact.Mobile" />
+                    </umb-control-group>
+                    <div ng-controller="Pipeline.Properties.MediaPicker">
+                        <umb-control-group label="@pipeline_files" description="@pipeline_filesHelp">
+                            <ul class="unstyled list-icons" ng-if="contact.Media.length > 0">
+                                <li ng-repeat="file in contact.Media">
+                                    <i class="icon icon-delete red hover-show pull-right" ng-click="removeMedia(file)"></i>
+                                    <i class="icon {{file.icon}} hover-hide"></i>
+                                    <a href="{{ file.Url }}" target="_blank"><i class="icon-umb-content"></i>{{ file.Name }}</a>
+                                </li>
+                            </ul>
+                            <ul class="unstyled list-icons">
+                                <li>
+                                    <i class="icon icon-add blue"></i>
+                                    <a prevent-default href="" ng-click="openMediaPicker()"><localize key="buttons_select"></localize></a>
+                                </li>
+                            </ul>
+                        </umb-control-group>
+                    </div>                            
+                </div>
+            </umb-tab>
+
+            <umb-tab id="tab2" rel="timeline">
+                <pipeline-timeline tasks="contact.Tasks" parent-type="'contact'" parent="contact"></pipeline-timeline>
+            </umb-tab>
+
+            <umb-tab id="tab3" rel="Pipelines">
+                <pipeline-grid type="'P'" contact-id="contact.Id" template-url="grid_pipelines.html"></pipeline-grid>
+            </umb-tab>
+
+            <umb-tab id="tab{{ tab.id }}" rel="{{ tab.name }}" ng-repeat="tab in customprops">
+                <div class="umb-tab-pane-inner">
+                    <div class="umb-pane">
+                        <umb-property property="property" ng-repeat="property in tab.items">
+                            <umb-editor model="property"></umb-editor>
+                        </umb-property>
+                    </div>
+                </div>
+            </umb-tab>
+
+            <div class="umb-tab-buttons" detect-fold>
+                <div class="btn-group">
+                    <button type="submit" data-hotkey="ctrl+s" class="btn btn-success">
+                        <localize key="buttons_save">Save</localize>
+                    </button>
+                </div>
+            </div>
+        </umb-tab-view>
+    </umb-panel>
+</form>

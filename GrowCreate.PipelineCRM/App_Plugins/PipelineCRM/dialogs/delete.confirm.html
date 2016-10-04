@@ -1,0 +1,35 @@
+﻿<div class="umb-panel">
+    <div class="umb-modalcolumn-header">
+        <h1><localize key="pipeline_areYouSure"></localize></h1>
+    </div>
+    <div class="umb-panel-body with-header with-footer">
+        <br />
+        <p><localize key="pipeline_areYouSureCopy"></localize></p>
+        <br />
+        <form class="form-group row-fluid" val-form-manager>
+        <div class="control-group umb-control-group checkbox">
+            <label>
+                <input type="checkbox" ng-model="dialogData.deleteLinks" />
+                <localize key="pipeline_deleteLinks"></localize>
+                <small><localize key="pipeline_deleteLinksHelp"></localize></small>
+            </label>
+        </div>
+    </div>
+
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+
+                <a href data-ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel"></localize>
+                </a>
+
+                <button class="btn btn-danger"
+                        data-ng-click="submit(dialogData)">
+                    <localize key="general_delete"></localize>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

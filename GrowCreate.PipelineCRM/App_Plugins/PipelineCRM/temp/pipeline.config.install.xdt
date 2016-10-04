@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PipelineConfig xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appSettings
+    useBoard = "true"
+    createMembers = "true"
+    pageSize = "50"
+    opportunityDocTypes = "pipelineMain"
+    contactDocTypes = "pipelineContact"
+    groupDocTypes = "pipelineGroup"
+    segmentDocTypes = "pipelineSegment"
+    digestTime = "7"
+    digestSubject = "{0}'s digest for {1}"
+    digestSender = "no-reply@website.com"
+    
+    trackUser = "true"
+    trackHistory = "true"
+    userTrackingCookie = "PipelineContactId"
+    userTrackingCookieExpiry = "30"
+    >
+  </appSettings>
+  <digestBody>
+    <![CDATA[
+      <html>
+              <style>body { background: #e5e5e5; font-family: Arial, Helvetica; } </style>
+              <body>
+                  <div style="background: white; padding: 20px;">
+                    <h2>{0}</h2>
+                    <h4>Tasks due today</h4>
+                    <ul>{1}</ul>
+                    <h4>Task reminders</h4>
+                    <ul>{2}</ul>
+                    <h4>Overdue tasks</h4>
+                    <ul>{3}</ul>
+                    <h4>New pipelines</h4>
+                    <ul>{5}</ul>
+                  </div>
+              </body>
+          </html>
+    ]]>
+  </digestBody>
+  <digestRow>
+    <![CDATA[
+      <li><a href="{0}"><strong>{1}</strong> {2}</a><br><small>{3}</small></li>
+    ]]>
+  </digestRow>
+</PipelineConfig>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+	<id>PipelineCRM</id>
+    <version>1.0.0</version>
+    <authors>Theo Paraskevopoulos</authors>
+    <owners>GrowCreate</owners>
+    <projectUrl>http://growcreate.co.uk</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A CRM package for the Umbraco 7 back-office</description>
+    <releaseNotes>Initial open-source release</releaseNotes>
+    <copyright>GrowCreate Limited</copyright>
+    <tags>Umbraco CRM content management system GrowCreate</tags>
+	<licenseUrl>http://www.growcreate.co.uk/pipeline-crm-eula/</licenseUrl>
+	<iconUrl>http://www.growcreate.co.uk/media/1606/pipeline-umbraco-crm.jpg</iconUrl>
+	<summary>Pipeline CRM is embedded into the Umbraco CMS, giving you seamless integration with your website’s content, media and users. Use Pipeline CRM for true personalisation with extranets, targeted file sharing and document management.</summary>
+  </metadata>
+</package>

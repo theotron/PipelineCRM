@@ -1,0 +1,65 @@
+﻿<div class="umb-panel" ng-controller="Pipeline.Dialogs.AddTask">
+    <div class="umb-modalcolumn-header">
+        <h1><localize key="general_add"></localize> <localize key="pipeline_task"></localize></h1>
+    </div>
+    <div class="umb-panel-body with-header with-footer">
+        <form class="form-group row-fluid" val-form-manager>
+            <umb-control-group label="@pipeline_description">
+                <textarea class="umb-editor" ng-model="dialogData.Description"></textarea>
+            </umb-control-group>            
+            <umb-control-group label="@pipeline_type">
+                <select ng-model="dialogData.Type" ng-options="type as type for type in Types"></select>
+            </umb-control-group>
+            <div class="control-group umb-control-group checkbox">
+                <label>
+                    <input type="checkbox" ng-model="isTask" />
+                    <localize key="pipeline_isTask">Is this a task?</localize>
+                </label>
+            </div>
+            <fieldset ng-show="isTask">
+                <umb-control-group label="@pipeline_assignedTo">
+                    <select ng-model="dialogData.UserId" ng-options="user.Id as user.Name for user in Users"></select>
+                </umb-control-group>
+                <umb-control-group label="@pipeline_dueDate">
+                    <umb-editor model="taskDatepicker"></umb-editor>
+                </umb-control-group>
+                <umb-control-group label="@pipeline_reminderDate">
+                    <umb-editor model="reminderDatepicker"></umb-editor>
+                </umb-control-group>
+            </fieldset>
+            <umb-control-group label="@pipeline_files">
+                <ul class="unstyled list-icons" ng-if="dialogData.Media.length > 0">
+                    <li ng-repeat="file in dialogData.Media">
+                        <i class="icon icon-delete red hover-show pull-right" ng-click="removeMedia(file)"></i>
+                        <i class="icon {{file.icon}} hover-hide"></i>
+                        <a href="{{ file.Url }}" target="_blank"><i class="icon-umb-content"></i>{{ file.Name }}</a>
+                    </li>
+                </ul>
+                <ul class="unstyled list-icons">
+                    <li>
+                        <i class="icon icon-add blue"></i>
+                        <a href="" ng-click="openMediaPicker()" prevent-default><localize key="buttons_select"></localize></a>
+                    </li>
+                </ul>
+            </umb-control-group>
+
+        </form>
+    </div>
+
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+
+                <a href data-ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel"></localize>
+                </a>
+
+                <button class="btn btn-primary"
+                        data-ng-click="presubmit()">
+                    <localize key="buttons_save"></localize>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

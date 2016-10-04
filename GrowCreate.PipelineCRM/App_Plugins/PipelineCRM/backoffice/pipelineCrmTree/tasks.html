@@ -1,0 +1,13 @@
+﻿<umb-panel>
+    <umb-header>
+        <div class="span5">
+            <h1><localize key="pipeline_myTasks"></localize></h1>
+        </div>
+    </umb-header>
+    <umb-tab-view>
+        <div ng-controller="Pipeline.Dashboards.Tasks" class="pipeline">
+            <pipeline-timeline tasks="tasks" parent-type="'user'" parent="user"></pipeline-timeline>
+        </div>
+    </umb-tab-view>
+</umb-panel>
+

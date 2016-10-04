@@ -1,0 +1,155 @@
+﻿<form class="pipeline" name="settingsForm" ng-controller="Pipeline.Settings" ng-show="loaded" val-form-manager>
+    <umb-panel>
+        <umb-header tabs="content.tabs">
+            <div class="span5">
+                <h1><p><localize key="pipeline_settings"></localize></h1>
+            </div>
+
+            <div class="span7">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <umb-options-menu ng-show="currentNode" current-node="currentNode" current-section="{{currentSection}}"></umb-options-menu>
+                </div>
+            </div>
+        </umb-header>
+
+        <umb-tab-view>
+            <umb-tab id="tab1" rel="pipelines">
+                <div class="umb-pane">
+                    <div class="control-group umb-control-group">
+                        <div class="umb-el-wrap">
+                            <label class="control-label">
+                                <p><localize key="pipeline_statuses"></localize></p>
+                            </label>
+
+                            <div class="controls controls-row">
+                                <div>
+                                    <div ng-model="status">
+                                        <input type="text" ng-model="newStatus.Name" />
+                                        <input type="button" class="btn btn-default" value="Add" ng-click="addStatus()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="pipeline-status controls controls-row unstyled list-icons custom-draggable" ui-sortable ng-model="pipelines">
+                            <li class="statuses" ng-repeat="status in statuses" ng-class="{ 'hide' : status.deleted }">
+                                <input type="text" value="{{ status.Name }}" ng-model="status.Name" ng-change="updateStatus(status)" />
+                                <i class="icon icon-delete" ng-click="removeStatus(status)"></i>
+                            </li>
+                        </ul>
+                    </div>                    
+                </div>
+            </umb-tab>
+            <umb-tab id="tab2" rel="organisations">
+                <div class="umb-pane">
+                    <div class="control-group umb-control-group">
+
+                        <div class="umb-el-wrap">
+                            <label class="control-label">
+                                <p><localize key="pipeline_organisation"></localize> <localize key="pipeline_types"></localize></p>
+                            </label>
+
+                            <div class="controls controls-row">
+
+                                <div>
+                                    <div ng-model="organisation">
+                                        <input type="text" ng-model="newOrgType.Name" />
+                                        <input type="button" class="btn btn-default" value="Add" ng-click="addOrgType()" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <ul class="pipeline-status controls controls-row unstyled list-icons custom-draggable" ui-sortable ng-model="organisations">
+                            <li class="statuses" ng-repeat="type in orgTypes" ng-class="{ 'hide' : type.deleted }">
+                                <!--<i class="icon icon-navigation handle"></i>-->
+                                <input type="text" value="{{ type.Name }}" ng-model="type.Name" ng-change="updateOrgType(type)" />
+                                <i class="icon icon-delete" ng-click="removeOrgType(type)"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </umb-tab>
+            <umb-tab id="tab3" rel="contact">
+                <div class="umb-pane">
+                    <div class="control-group umb-control-group">
+                        <div class="umb-el-wrap">
+                            <label class="control-label">
+                                <p><localize key="pipeline_contact"></localize> <localize key="pipeline_types"></localize></p>
+                            </label>
+                            <div class="controls controls-row">
+                                <div>
+                                    <div ng-model="contact">
+                                        <input type="text" ng-model="newContactType.Name" />
+                                        <input type="button" class="btn btn-default" value="Add" ng-click="addContactType()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="pipeline-status controls controls-row unstyled list-icons custom-draggable" ui-sortable ng-model="contacts">
+                            <li class="statuses" ng-repeat="type in contactTypes" ng-class="{ 'hide' : type.deleted }">
+                                <!--<i class="icon icon-navigation handle"></i>-->
+                                <input type="text" value="{{ type.Name }}" ng-model="type.Name" ng-change="updateContactType(type)" />
+                                <i class="icon icon-delete" ng-click="removeContactType(type)"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </umb-tab>
+            <umb-tab id="tab4" rel="segment">
+                <div class="umb-pane">
+                    <div class="control-group umb-control-group">
+                        <div class="umb-el-wrap">
+                            <label class="control-label">
+                                <p><localize key="pipeline_segment"></localize> <localize key="pipeline_types"></localize></p>
+                            </label>
+                            <div class="controls controls-row">
+                                <div>
+                                    <div ng-model="contact">
+                                        <input type="text" ng-model="newSegmentType.Name" />
+                                        <input type="button" class="btn btn-default" value="Add" ng-click="addSegmentType()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="pipeline-status controls controls-row unstyled list-icons custom-draggable" ui-sortable ng-model="segments">
+                            <li class="statuses" ng-repeat="type in segmentTypes" ng-class="{ 'hide' : type.deleted }">
+                                <!--<i class="icon icon-navigation handle"></i>-->
+                                <input type="text" value="{{ type.Name }}" ng-model="type.Name" ng-change="updateSegmentType(type)" />
+                                <i class="icon icon-delete" ng-click="removeSegmentType(type)"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </umb-tab>
+            <umb-tab id="tab5" rel="notifications">
+                <div class="umb-pane">                    
+                    <div class="control-group umb-control-group">
+                        <div class="umb-el-wrap">
+                            <label class="control-label">
+                                <p><localize key="pipeline_digest"></localize></p>
+                                <small><localize key="pipeline_digestHelp"></localize></small>
+                            </label>
+
+                            <div class="controls controls-row">
+                                <div>
+                                    <div>
+                                        <input type="checkbox" id="pipeline" name="pipeline" ng-model="preferences.ReceiveDigest" ng-checked="preferences.ReceiveDigest" />
+                                        <label for="pipeline"><localize key="pipeline_receiveDigest"></localize></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </umb-tab>
+            <div class="umb-tab-buttons" detect-fold ng-class="{'umb-dimmed': busy}">
+                <div class="btn-group">
+                    <h5><localize key="pipeline_changesSavedOnSubmit"></localize></h5>
+                    <button type="submit" data-hotkey="ctrl+s" class="btn btn-success" ng-click="save()">
+                        <localize key="buttons_save">Save</localize>
+                    </button>
+                </div>
+            </div>
+        </umb-tab-view>
+    </umb-panel>
+</form>

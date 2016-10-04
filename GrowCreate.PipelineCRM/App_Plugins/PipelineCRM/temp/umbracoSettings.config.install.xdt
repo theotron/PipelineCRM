@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settings xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <scheduledTasks>
+    <!-- Uncomment this line to send daily digest-->
+    <!-- <task log="true" alias="pipelineNotifications" interval="60" url="/umbraco/surface/notification/sendnotifications"/>-->
+  </scheduledTasks>
+</settings>

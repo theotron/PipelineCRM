@@ -1,0 +1,126 @@
+﻿<form class="pipeline"
+      name="segmentForm"
+      ng-controller="Pipeline.SegmentEditController"
+      ng-show="loaded"
+      ng-submit="save(segment)"
+      val-form-manager>
+    <umb-panel>
+        <umb-header>
+
+            <div class="span7">
+                <umb-content-name placeholder="@placeholders_entername" ng-model="segment.Name" />
+            </div>
+
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <umb-options-menu ng-show="currentNode"
+                        current-node="currentNode"
+                        current-section="{{currentSection}}">
+                    </umb-options-menu>
+
+                    <div class="btn-group">
+                        <a class="btn" href="#" prevent-default data-toggle="dropdown">
+                            <localize key="general_actions" class="ng-isolate-scope ng-scope">Actions</localize>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu umb-actions" role="menu">
+                            <li><a href="" prevent-default ng-click="archiveSegment()" ng-if="!segment.Archived"><i class="icon icon-delete"></i><span class="menu_label"><localize key="actions_delete"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="restoreSegment()" ng-if="segment.Archived"><i class="icon icon-undo"></i><span class="menu_label"><localize key="pipeline_restore"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="deleteSegment()" ng-if="segment.Archived"><i class="icon icon-delete"></i><span class="menu_label"><localize key="pipeline_deletePermanently"></localize></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs umb-nav-tabs span12">
+                <li ng-repeat="tab in content.tabs" ng-class="{active: $first}">
+                    <a href="#tab{{ tab.id }}" data-toggle="tab">{{ tab.label }}</a>
+                </li>
+            </ul>
+
+        </umb-header>
+
+        <umb-tab-view>
+
+            <umb-tab id="tab1" rel="information">
+                <div class="umb-pane">
+
+                    <umb-control-group label="@pipeline_type" description="@pipeline_typeHelp">
+                        <select ng-model="segment.TypeId" ng-options="type.Id as type.Name for type in segmentTypes"></select>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_criteria" description="@pipeline_criteriaHelp">
+                        <select ng-model="segment.Criteria" ng-options="criteria as criteria for criteria in segmentCriteria" ng-change="getCriteriaProps()"></select>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_contacts" description="@pipeline_contactsHelp" ng-if="segment.Criteria == 'Select contacts'">
+                        <ul class="unstyled list-icons">
+                            <li ng-repeat="contact in segment.Contacts">
+                                <i class="icon icon-delete red hover-show pull-right" ng-click="removeContact(contact)"></i>
+                                <i class="icon icon-user hover-hide"></i>
+                                <a href="#/pipelineCrm/pipelineCrmTree/edit.contact/{{ contact.Id }}">{{ contact.Name }}</a>
+                            </li>
+                        </ul>
+                        <p>
+                            <a href ng-click="addContact()" prevent-default><i class="icon icon-add blue"></i> <localize key="add"></localize></a>
+                            <a href ng-click="selectContact()" prevent-default><i class="icon icon-add blue"></i> <localize key="buttons_select"></localize></a>
+                        </p>
+                    </umb-control-group>
+                    <umb-control-group label="@pipeline_organisations" description="@pipeline_organisationsHelp" ng-if="segment.Criteria == 'Select organisations'">
+                        <ul class="unstyled list-icons">
+                            <li ng-repeat="org in segment.Organisations">
+                                <i class="icon icon-delete red hover-show pull-right" ng-click="removeOrganisation(org)"></i>
+                                <i class="icon icon-user hover-hide"></i>
+                                <a href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ org.Id }}">{{ org.Name }}</a>
+                            </li>
+                        </ul>
+                        <p>
+                            <a href ng-click="addOrganisation()" prevent-default><i class="icon icon-add blue"></i> <localize key="add"></localize></a>
+                            <a href ng-click="selectOrganisation()" prevent-default><i class="icon icon-add blue"></i> <localize key="buttons_select"></localize></a>
+                        </p>
+                    </umb-control-group>
+                                                                
+                    <umb-property property="property" ng-repeat="property in criteriaProps">
+                        <umb-editor model="property"></umb-editor>
+                    </umb-property>
+                    
+                    <umb-control-group label="@pipeline_preview" description="@pipeline_previewHelp" ng-if="segment.Results.length">
+                        <h5>{{ segment.Results.length }} contacts in this segment</h5>
+                        <ul class="unstyled list-icons">
+                            <li ng-repeat="org in segment.Results">
+                                <i class="icon icon-user hover-hide"></i>
+                                <a href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ org.Id }}">{{ org.Name }}</a>
+                            </li>
+                        </ul>
+                        <p class="well">
+                            <strong>JSON feed</strong><br />
+                            <small><a target="_blank" href="/umbraco/backoffice/GrowCreate.PipelineCRM/SegmentApi/GetContacts/{{ segment.Id }}">/umbraco/backoffice/GrowCreate.PipelineCRM/SegmentApi/GetContacts/{{ segment.Id }}</a></small>
+                        </p>
+                    </umb-control-group>
+
+                </div>
+            </umb-tab>
+
+            <umb-tab id="tab2" rel="timeline">
+                <pipeline-timeline tasks="segment.Tasks" parent-type="'segment'" parent="segment"></pipeline-timeline>
+            </umb-tab>            
+            
+            <umb-tab id="tab{{ tab.id }}" rel="{{ tab.name }}" ng-repeat="tab in customprops">
+                <div class="umb-tab-pane-inner">
+                    <div class="umb-pane">
+                        <umb-property property="property" ng-repeat="property in tab.items">
+                            <umb-editor model="property"></umb-editor>
+                        </umb-property>
+                    </div>
+                </div>
+            </umb-tab>
+
+            <div class="umb-tab-buttons" detect-fold>
+                <div class="btn-group">                    
+                    <button type="submit" data-hotkey="ctrl+s" class="btn btn-success">
+                        <localize key="buttons_save">Save</localize>
+                    </button>
+                </div>
+            </div>
+    </umb-panel>
+</form>

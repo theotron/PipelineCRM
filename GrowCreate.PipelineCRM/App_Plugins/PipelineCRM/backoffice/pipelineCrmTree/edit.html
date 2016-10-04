@@ -1,0 +1,116 @@
+﻿<form class="pipeline"
+      name="pipelineForm"
+      ng-controller="Pipeline.PipelineEditController"
+      ng-show="loaded"
+      ng-submit="save()"
+      val-form-manager>
+    <umb-panel>
+        <umb-header>
+            <div class="span7">
+                <umb-content-name placeholder="@placeholders_entername" ng-model="pipeline.Name" />
+            </div>
+
+            <div class="span5">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <div class="btn-group">
+                        <a class="btn" href="#" prevent-default data-toggle="dropdown">
+                            <localize key="general_actions" class="ng-isolate-scope ng-scope">Actions</localize>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu umb-actions" role="menu">
+                            <li><a href="" prevent-default ng-click="duplicatePipeline()" ng-if="!pipeline.Archived"><i class="icon icon-documents"></i><span class="menu_label"><localize key="pipeline_duplicate"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="archivePipeline()" ng-if="!pipeline.Archived"><i class="icon icon-delete"></i><span class="menu_label"><localize key="actions_delete"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="restorePipeline()" ng-if="pipeline.Archived"><i class="icon icon-undo"></i><span class="menu_label"><localize key="pipeline_restore"></localize></span></a></li>
+                            <li><a href="" prevent-default ng-click="deletePipeline()" ng-if="pipeline.Archived"><i class="icon icon-delete"></i><span class="menu_label"><localize key="pipeline_deletePermanently"></localize></span></a></li>
+                        </ul>
+                    </div>
+                    <umb-options-menu ng-show="currentNode"
+                        current-node="currentNode"
+                        current-section="{{currentSection}}">
+                    </umb-options-menu>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs umb-nav-tabs span12">
+                <li ng-repeat="tab in content.tabs" ng-class="{active: $first}">
+                    <a href="#tab{{ tab.id }}" data-toggle="tab">{{ tab.label }}</a>
+                </li>
+            </ul>
+        </umb-header>
+
+        <umb-tab-view>
+            
+            <umb-tab id="tab1" rel="settings">
+                <div class="umb-pane form-horizontal">
+
+                    <umb-control-group label="@pipeline_status" description="@pipeline_statusHelp">
+                        <select required ng-required="required" ng-model="pipeline.StatusId"
+                                ng-options="status.Id as status.Name for status in Statuses"></select>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_owner" description="@pipeline_ownerHelp">
+                        <select ng-model="pipeline.UserId"
+                                ng-options="user.Id as user.Name for user in Users"></select>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_value" description="@pipeline_valueHelp">
+                        <input class="umb-editor umb-textstring" currency-input field="pipeline.Value" ng-required />
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_probability" description="@pipeline_probabilityHelp">
+                        <input type="number" max="100" min="0" class="umb-editor umb-textstring" ng-model="pipeline.Probability" ng-required />
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_adjustedValue" description="@pipeline_adjustedValueHelp">
+                        {{ pipeline | adjustedValue | currency }}
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_contact" description="@pipeline_contactHelp">
+                        <select ng-model="pipeline.ContactId"
+                                ng-options="contact.Id as contact.Name for contact in Contacts"></select>
+                        <a class="btn btn-link" ng-if="pipeline.ContactId" href="#/pipelineCrm/pipelineCrmTree/edit.contact/{{ pipeline.ContactId }}"><localize key="view"></localize> <i class="icon icon-navigation-right blue"></i></a>
+                        <a prevent-default class="btn" ng-click="addContact()"><i class="icon-add blue"></i> <localize key="add"></localize></a>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_organisation" description="@pipeline_organisationHelp">
+                        <select ng-model="pipeline.OrganisationId"
+                                ng-options="org.Id as org.Name for org in Organisations"></select>
+                        <a class="btn btn-link" ng-if="pipeline.OrganisationId" href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ pipeline.OrganisationId }}"><localize key="view"></localize> <i class="icon icon-navigation-right blue"></i></a>
+                        <a prevent-default class="btn" ng-click="addOrganisation()"><i class="icon-add blue"></i> <localize key="add"></localize></a>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_createdDate" description="@pipeline_createdDateHelp">
+                        <umb-editor model="createdDatepicker"></umb-editor>
+                    </umb-control-group>
+
+                    <umb-control-group label="@pipeline_completeDate" description="@pipeline_completeDateHelp">
+                        <umb-editor model="completeDatepicker"></umb-editor>
+                    </umb-control-group>
+                </div>
+            </umb-tab>
+
+            <umb-tab id="tab2" rel="timeline">
+                <pipeline-timeline tasks="pipeline.Tasks" parent-type="'pipeline'" parent="pipeline"></pipeline-timeline>
+            </umb-tab>
+
+            <umb-tab id="tab{{ tab.id }}" rel="{{ tab.name }}" ng-repeat="tab in customprops">
+                <div class="umb-tab-pane-inner">
+                    <div class="umb-pane">
+                        <umb-property property="property" ng-repeat="property in tab.items">
+                            <umb-editor model="property"></umb-editor>
+                        </umb-property>
+                    </div>
+                </div>
+            </umb-tab>
+
+            <div class="umb-tab-buttons" detect-fold>
+                <div class="btn-group">
+                    <button type="submit" data-hotkey="ctrl+s" class="btn btn-success">
+                        <localize key="buttons_save">Save</localize>
+                    </button>
+                </div>
+            </div>
+        </umb-tab-view>
+
+    </umb-panel>
+</form>

@@ -1,0 +1,253 @@
+﻿.umb-panel-body.no-margin{
+    margin: 0; padding: 0;
+}
+
+.pipeline .obscured{
+    color: #ccc;
+}
+.pipeline .table tbody+tbody{
+    border-width: 1px;
+}
+.pipeline .repeater{
+    border-bottom: 1px solid #f8f8f8; padding: 20px 0; position: relative; margin-right: 30px;
+}
+.pipeline .repeater:last-child{
+    border-bottom: 2px solid #e8e8e8;
+}
+.pipeline .repeater p{
+    margin: 5px 0 0 50px;
+}
+.pipeline .repeater .note{
+    white-space: pre-line;
+}
+.pipeline .repeater .span11{
+    border-left: 4px solid #fff;
+}
+.pipeline .repeater .task{
+    border-left: 4px solid #53a93f;
+}
+.pipeline .repeater .overdue{
+    border-left: 4px solid #df7f48;
+}
+.modal .repeater {
+    margin-right: 0;
+}
+
+.pipeline .files{
+    display: block; margin: 10px 0;
+}
+.pipeline .touchpoint{
+    position: relative;
+}
+.pipeline .avatar{
+    border-radius: 50%; position: absolute; left: 0; top: 0;
+}
+.pipeline label small{
+    font-weight: bold; display: block;
+}
+.pipeline table th{
+    background: #f8f8f8;
+}
+.pipeline .summary{
+    font-size: 80%;
+}
+.modal .summary .span4{
+    width: 100%;
+}
+.modal .summary .span2{
+    width: 25%;
+}
+.pipeline .summary h4{
+    margin: 10px 0 0 0;
+}
+.pipeline .summary .span2{
+    padding-top: 5px;
+}
+.pipeline .well{
+    background: #f8f8f8; border: none; border-radius: 4px;
+}
+.pipeline .full-width{
+    width: 98%;
+}
+.pipeline .center{
+    text-align: center;
+}
+
+
+.pipeline .big-plus{
+    border-radius: 50%; padding: 15px; width: 50px; height: 50px; box-shadow: 2px 2px 5px #e5e5e5;
+}
+.modal .pipeline .big-plus{
+    padding: 1px; width: 30px; height: 30px;
+}
+
+.pipeline.charts h4{
+    border-top: 1px solid #ddd; padding: 20px 0;
+}
+.pipeline .label{
+    margin-right: 5px; background-color: #3a87ad;
+}
+.pipeline .label-shared, .pipeline .label-email{
+    background-color: #5cb85c;
+}
+.pipeline .margin-top{
+    margin-top: 10px;
+}
+
+.pipeline .umb-tab-buttons{
+    padding-left: 20px;
+}
+
+
+/* Kanban board */
+
+.pipeline-board {
+    width: 2000px; height: 100%;
+}
+.pipeline-board h5{
+    margin: 10px 0;
+}
+.pipeline-board .list{
+    float: left; border: 1px solid #ddd; background: #f8f8f8; border-radius: 5px; padding: 0 10px; margin-right: 10px; width: 250px; height: 100%;
+}
+.pipeline-board .list.over{
+    border-color: #ccc; box-shadow: 0 0 5px #999;
+}
+.pipeline-board .list .card{
+    position:relative; float: left; border: 1px solid #fff; padding: 10px; margin-bottom: 10px; width: 230px; background: white;
+}
+.pipeline-board .list .card.obscured{
+    opacity: 0.5;
+}
+.pipeline-board .list .card:hover{
+    border: 1px solid #ddd; cursor: move;
+}
+.pipeline-board .list .card.dropAfter{
+    box-shadow: 0 5px 2px 0 #999;
+}
+.pipeline-board .list .card.dropBefore{
+    box-shadow: 0 -5px 2px 0 #999;
+}
+.pipeline-board .list .card .dropAfter{
+    position: absolute; top: 0; left: 0; width: 100%; height: 30%; display: block;
+}
+.pipeline-board .list .card .dropBefore{
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 70%; display: block;
+}
+.pipeline-board .list .card.tracker .dropAfter:hover, 
+    .pipeline-board .list .card.tracker .dropBefore:hover{
+    background: #ddd;
+}
+.pipeline-board .pagination{
+    padding: 0; margin-top: -20px;
+}
+.pipeline-board .pagination a{
+    text-decoration: none;
+}
+.pipeline i.green{
+    color: #53a93f;
+}
+
+.pipeline-board .dropup{
+    position: fixed; right: 40px; bottom: 40px;
+}
+.pipeline-board .dropup ul a{
+    text-decoration: none;
+}
+
+
+.pipeline-board .list .card .avatar{
+    left: auto; right: 10px; top: 10px; 
+}
+.pipeline-board .list .card .card-title{
+    margin: 0 40px 10px 0;
+}
+.pipeline-board .list .card .icon{
+    margin: 0 5px 5px 0; float: left;
+}
+.pipeline-board .list small a{
+    text-decoration: none; padding: 5px 0; display: inline-block; color: #999;
+}
+
+.pipeline .card-label{
+    display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 2px; margin-right: 1px;
+}
+.pipeline .card-label.selected{
+    border-color: #808080;
+}
+.pipeline-board .list .card .card-label{
+    height: 5px; width: 40px;
+}
+
+.umb-modal input:not([type='checkbox']), .umb-modal textarea{
+    width: 95%;
+}
+.umb-modal select{
+    width: 99%;
+}
+.umb-modal textarea{
+    height: 150px;
+}
+
+/* grid */
+
+.pipeline .form-search{
+    margin-right: 15px;
+}
+.pipeline .umb-sub-header .disabled{
+    opacity: 0.2;
+}
+.pipeline tr:hover td i.icon, .pipeline td input[type="checkbox"]{
+    display: none;
+}
+.pipeline tr:hover td input[type="checkbox"], .pipeline td input.checked{
+    display: inline-block !important;
+}
+.pipeline tfoot  li{
+    cursor: pointer;
+}
+.pipeline tfoot li.active span{
+    color: #333; background: none;
+}
+
+
+/* Settings Section */
+.nav-tabs .nav-toggle a {
+    padding-top: 5px;
+    padding-bottom: 3px;
+}
+
+.pipeline-status .statuses {
+    overflow: hidden;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+.pipeline-status .statuses i.icon {
+    display: block;
+    float: left;
+    margin-left: 0;
+    padding-top: 4px;
+    padding-right: 7px;
+    padding-left: 7px;
+    font-size: 18px;
+    -moz-transition: ease-in color 0.2s;
+    -o-transition: ease-in color 0.2s;
+    -webkit-transition: ease-in color 0.2s;
+    transition: ease-in color 0.2s;
+}
+
+.pipeline-status .statuses .icon-delete:hover {
+    color: #d9534f;
+    cursor: pointer;
+}
+
+.pipeline-status .statuses .icon-navigation:hover {
+    color: #5bc0de;
+    cursor: pointer;
+}
+
+.pipeline-status .statuses input[type="text"] {
+    display: block;
+    float: left;
+}

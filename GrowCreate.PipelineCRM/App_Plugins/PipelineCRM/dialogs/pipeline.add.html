@@ -1,0 +1,65 @@
+﻿<form class="form-group row-fluid" name="addPipelineForm" val-form-manager ng-submit="submit(dialogData)">
+    <div class="umb-panel">
+        <div class="umb-modalcolumn-header">
+            <h1><localize key="general_add"></localize> <localize key="pipeline_opportunity"></localize> <localize key="pipeline_in"></localize> {{ dialogData.Status.Name }}</h1>
+        </div>
+        <div class="umb-panel-body with-header with-footer" auto-scale="100">
+            <br />
+            <div class="form-group row-fluid">
+                <label for="Name"><localize key="name"></localize><sup class="text-error">*</sup></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" required ng-model="dialogData.Name" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="ContactName"><localize key="pipeline_contact"></localize><sup class="text-error">*</sup></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" required ng-model="dialogData.ContactName" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="ContactEmail"><localize key="pipeline_email"></localize><sup class="text-error">*</sup></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" required ng-model="dialogData.ContactEmail" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Group"><localize key="pipeline_organisation"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" ng-model="dialogData.OrganisationName" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Value"><localize key="pipeline_value"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="number" ng-model="dialogData.Value" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Value"><localize key="pipeline_probability"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="number" ng-model="dialogData.Probability" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Value"><localize key="pipeline_description"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <textarea class="umb-editor" ng-model="dialogData.Message"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="umb-panel-footer">
+            <div class="umb-el-wrap umb-panel-buttons">
+                <div class="btn-toolbar umb-btn-toolbar pull-right">
+                    <a href data-ng-click="close()" class="btn btn-link">
+                        <localize key="general_cancel"></localize>
+                    </a>
+                    <button class="btn btn-primary" type="submit">
+                        <localize key="buttons_save"></localize>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

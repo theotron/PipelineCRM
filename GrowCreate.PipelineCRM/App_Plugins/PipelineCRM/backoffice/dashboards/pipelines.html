@@ -1,0 +1,37 @@
+﻿<div ng-controller="Pipeline.Dashboards.Pipelines" ng-show="loaded" class="pipeline">
+    <div class="pipeline-board">
+        <h5 class="pagination" ng-if="TotalPages > 1">
+            <span ng-if="loadedData">
+                <localize key="pipeline_opportunities"></localize> {{ PageItems }} of {{ TotalItems }}. <a href="" ng-click="loadPage()" ng-if="CurrentPage < TotalPages">Load the next page?</a>
+            </span>
+            <span ng-if="!loadedData" class="alert"><localize key="general_loading">Loading</localize>...</span>
+        </h5>
+        <div class="list" ng-repeat="status in Statuses" pipeline-board-drop="dropCard(list)" statusId="{{ status.Id }}">
+            <h5>
+                {{ status.Name}}
+                <span class="total pull-right"> {{ status.totalValue | currency }}</span>
+            </h5>
+            <div class="card" ng-show="!pipeline.Archived" ng-repeat="pipeline in status.pipelines | orderBy: 'SortOrder'" draggable="true" pipeline-board-drag="pipeline" ng-click="previewPipeline(pipeline)" ng-class="pipeline.Obscured ? 'obscured' : ''">
+                <div class="card-label" ng-repeat="label in pipeline.Labels" style="background-color:{{ label.Value }}"></div>
+                <div class="card-title">
+                    {{ pipeline.Name }}
+                </div>
+                <img src="http://www.gravatar.com/avatar/{{ pipeline.UserAvatar }}?s=30" alt="{{ pipeline.UserName }}" class="avatar">
+                <small>{{ pipeline.OrganisationId > 0 ? pipeline.Organisation.Name : pipeline.Contact.Name }}</small>
+                <small ng-if="pipeline.Value">{{ pipeline | adjustedValue | currency }}</small>
+                <small ng-if="!pipeline.Value">{{ pipeline.DateCreated  | date : 'dd/MM/yyyy'}}</small>
+                <div class="dropBefore" pipeline-board-card-drop="pipeline" pipelineId="{{ pipeline.Id }}" dropPos="0"></div>
+                <div class="dropAfter" pipeline-board-card-drop="pipeline" pipelineid="{{ pipeline.Id }}" dropPos="1"></div>
+            </div>
+            <small><a href="" ng-click="addPipeline(status)"><i class="icon-add green"></i> <localize key="general_create"></localize></a></small>
+        </div>
+
+        <div class="dropup">
+            <button prevent-default class="btn btn-large big-plus btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-add icon-th-large"></i></button>
+            <ul class="dropdown-menu pull-right">
+                <li ng-repeat="status in Statuses"><a href="" ng-click="addPipeline(status)">{{ status.Name }}</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>

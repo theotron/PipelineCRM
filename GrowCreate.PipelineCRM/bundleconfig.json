@@ -1,0 +1,21 @@
+[
+  {
+    "outputFileName": "App_Plugins/PipelineCRM/pipeline.js",
+    "inputFiles": [
+      "App_Plugins/PipelineCRM/pipeline.controller.js",
+      "App_Plugins/PipelineCRM/pipeline.directives.js",
+      "App_Plugins/PipelineCRM/pipeline.filters.js",
+      "App_Plugins/PipelineCRM/pipeline.resource.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    }
+  },
+  {
+    "outputFileName": "App_Plugins/PipelineCRM/Css/pipeline.css",
+    "inputFiles": [
+      "App_Plugins/PipelineCRM/Css/pipeline.css"
+    ]
+  }
+]

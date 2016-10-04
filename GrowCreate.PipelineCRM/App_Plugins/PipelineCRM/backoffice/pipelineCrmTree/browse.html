@@ -1,0 +1,14 @@
+﻿<form class="pipeline" name="pipelineForm" ng-controller="Pipeline.Pipeline.Browse">
+    <umb-panel>
+        <umb-header>
+            <div class="span5">                
+                <h1>{{ content.title }} <localize key="pipeline_opportunities"></localize></h1>
+            </div>
+        </umb-header>
+
+        <umb-tab-view>
+            <pipeline-grid type="'P'" status-id="content.statusId" template-url="grid_pipelines.html"></pipeline-grid>
+        </umb-tab-view>
+       
+    </umb-panel>
+</form>

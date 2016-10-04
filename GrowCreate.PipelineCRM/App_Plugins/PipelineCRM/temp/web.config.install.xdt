@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <section name="PipelineConfig" type="GrowCreate.PipelineCRM.Config.PipelineConfig, GrowCreate.PipelineCRM" requirePermission="false" xdt:Transform="Insert" />
+  </configSections>
+  <PipelineConfig configSource="config\pipeline.config" xdt:Transform="Insert" />
+</configuration>

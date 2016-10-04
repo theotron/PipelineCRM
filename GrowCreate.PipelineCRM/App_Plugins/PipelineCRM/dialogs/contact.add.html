@@ -1,0 +1,50 @@
+﻿<form class="form-group row-fluid" name="addContactForm" val-form-manager ng-submit="submit(dialogData)">
+    <div class="umb-panel">
+        <div class="umb-modalcolumn-header">
+            <h1><localize key="general_add"></localize> <localize key="pipeline_contact"></localize></h1>
+        </div>
+        <div class="umb-panel-body with-header with-footer" auto-scale="100">
+            <br />
+            <div class="form-group row-fluid">
+                <label for="Name"><localize key="name"></localize><sup class="text-error">*</sup></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" required ng-model="dialogData.Name" name="name" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Title"><localize key="pipeline_title"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" ng-model="dialogData.Title" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Email"><localize key="pipeline_email"></localize><sup class="text-error">*</sup></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="email" ng-model="dialogData.Email" required name="contactEmail" />
+                    <span class="help-inline" val-msg-for="contactEmail" val-toggle-msg="required"><localize key="required" /></span>
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Telephone"><localize key="pipeline_telephone"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <input type="text" ng-model="dialogData.Telephone" />
+                </div>
+            </div>
+        </div>
+        <div class="umb-panel-footer">
+            <div class="umb-el-wrap umb-panel-buttons">
+                <div class="btn-toolbar umb-btn-toolbar pull-right">
+
+                    <a href data-ng-click="close()" class="btn btn-link">
+                        <localize key="general_cancel"></localize>
+                    </a>
+
+                    <button class="btn btn-primary" type="submit">
+                        <localize key="buttons_save"></localize>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

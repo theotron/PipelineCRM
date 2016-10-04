@@ -1,0 +1,8 @@
+﻿{
+	javascript: [
+	    '~/App_Plugins/PipelineCRM/pipeline.min.js'
+	],
+	css: [
+		'~/App_Plugins/PipelineCRM/Css/pipeline.min.css'
+	]
+}

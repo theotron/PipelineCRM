@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <creator>
+    <name>GrowCreate</name>
+    <link>http://growcreate.co.uk</link>
+  </creator>
+  <area alias="sections">
+    <key alias="pipelineCrm">Pipeline CRM</key>
+  </area>
+  <area alias="pipeline">
+    <key alias="opportunity">Opportunity</key>
+    <key alias="contact">Contact</key>
+    <key alias="organisation">Organisation</key>
+    <key alias="segment">Segment</key>
+    <key alias="task">Task</key>
+    <key alias="forThis">for this</key>
+
+    <key alias="segments">Segments</key>
+    <key alias="opportunities">Opportunities</key>
+    <key alias="contacts">Contacts</key>
+    <key alias="organisations">Organisations</key>
+    <key alias="statuses">Statuses</key>
+    <key alias="types">types</key>
+    <key alias="tasks">Tasks</key>
+    <key alias="myTasks">My tasks</key>
+    <key alias="notifications">Notifications</key>
+    <key alias="archive">Archive</key>
+    <key alias="settings">Settings</key>
+    
+    <key alias="none">None</key>
+    <key alias="showAll">Show all</key>
+    <key alias="unassigned">Unassigned</key>
+    <key alias="information">Information</key>
+    <key alias="details">Details</key>
+    <key alias="timeline">Timeline</key>
+    <key alias="dashboard">Dashboard</key>
+    <key alias="notFound">No items found.</key>
+    <key alias="daysOverdue">days overdue</key>
+    <key alias="addedBy">Added by</key>
+    <key alias="linkedTo">Linked to</key>
+    <key alias="in">in</key>
+    <key alias="changesSavedOnSubmit">No changes will take effect until you Save</key>
+    <key alias="licenseLimit">Sorry, you have reached the limits of the free version. If you want unlimited items, please purchase a license.</key>
+
+    <key alias="edit">Edit</key>
+    <key alias="restore">Restore</key>
+    <key alias="duplicate">Duplicate</key>
+    <key alias="deletePermanently">Delete permanently</key>
+
+    <key alias="areYouSure">Are you sure?</key>
+    <key alias="areYouSureCopy">Are you sure you want to delete this record? There's no going back!</key>
+    <key alias="deleteLinks">Delete links</key>
+    <key alias="deleteLinksHelp">Tick to delete all related items as well.</key>
+
+    <key alias="status">Status</key>
+    <key alias="statusHelp">Select a Status</key>
+    <key alias="owner">Owner</key>
+    <key alias="ownerHelp">Owner of this opportunity</key>
+    <key alias="value">Value</key>
+    <key alias="valueHelp">Total opportuinity value</key>
+    <key alias="probability">Probability</key>
+    <key alias="probabilityHelp">Likelihood of winning</key>
+    <key alias="adjustedValue">Adjusted value</key>
+    <key alias="adjustedValueHelp">Total value / probability %</key>
+    <key alias="completeDate">Closing date</key>
+    <key alias="completeDateHelp">When Opportunity will be decided</key>
+    <key alias="createdDate">Created date</key>
+    <key alias="createdDateHelp">When Opportunity came up</key>
+    <key alias="title">Title</key>
+    <key alias="titleHelp">Add a personal or professional title</key>
+    <key alias="assignedTo">Assigned to</key>
+    <key alias="assignedToHelp">Select an owner User</key>
+    <key alias="description">Description</key>
+    <key alias="descriptionHelp">Enter a description</key>
+    <key alias="type">Type</key>
+    <key alias="typeHelp">Select a type</key>
+    <key alias="isTask">Is this a task?</key>
+    <key alias="dueDate">Due date</key>
+    <key alias="dueDateHelp">Enter a due date if it's a Task</key>
+    <key alias="reminderDate">Reminder</key>
+    <key alias="reminderDateHelp">Send a reminder before it's due</key>
+    <key alias="files">Files</key>
+    <key alias="filesHelp">Attach files</key>
+    <key alias="organisationsHelp">One or more Organisations</key>
+    <key alias="organisationHelp">Select target Organisation</key>
+    <key alias="contactsHelp">One or more Contacts</key>
+    <key alias="contactHelp">Select target Contact</key>
+    <key alias="email">Email</key>
+    <key alias="emailHelp">Enter an email address</key>
+    <key alias="telephone">Telephone</key>
+    <key alias="telephoneHelp">Enter a telephone number</key>
+    <key alias="mobile">Mobile</key>
+    <key alias="mobileHelp">Enter a mobile number</key>
+    <key alias="website">Website</key>
+    <key alias="websiteHelp">Enter a web address</key>
+    <key alias="address">Address</key>
+    <key alias="addressHelp">Enter a postal address</key>
+    <key alias="digest">Digest</key>
+    <key alias="digestHelp">New opportunities and upcoming tasks via daily email</key>
+    <key alias="receiveDigest">Receive digest?</key>
+
+    <key alias="criteria">Criteria</key>
+    <key alias="criteriaHelp">Select segment criteria</key>
+    <key alias="preview">Preview</key>
+    <key alias="previewHelp">Current contacts in this segment</key>
+
+  </area>
+
+</language>

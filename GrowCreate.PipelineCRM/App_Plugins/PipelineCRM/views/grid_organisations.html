@@ -1,0 +1,77 @@
+﻿<div class="umb-pane" ng-controller="Pipeline.Grid">
+
+    <div class="umb-sub-header">
+        <a ng-if="statusId >= 0 || statusId == -2" href="#/pipelineCrm/pipelineCrmTree/edit.organisation/-1?create" class="btn btn-success"><localize key="add">Add</localize> <localize key="pipeline_organisation">Organisation</localize></a>
+        <div class="btn-group" ng-if="statusId >= 0 || statusId == -2" ng-class="{disabled: !anySelected()}">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><localize key="actions_move">Move</localize> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li ng-repeat="type in Types"><a href="" ng-click="changeSelected(type)">{{ type.Name }}</a></li>
+                <li class="divider"></li>
+                <li><a href="" ng-click="changeSelected(-1)"><localize key="actions_delete">Delete</localize></a></li>
+            </ul>
+        </div>
+        <button class="btn btn-success" ng-click="changeSelected(0)" ng-if="statusId == -1" ng-class="{disabled: !anySelected()}"><localize key="pipeline_restore">Restore</localize></button>
+        <button class="btn btn-danger" ng-click="deleteSelected()" ng-if="statusId == -1" ng-class="{disabled: !anySelected()}"><localize key="pipeline_deletePermanently">Delete</localize></button>
+        
+        <form class="form-search pull-right ng-pristine ng-valid" novalidate="">
+            <div class="inner-addon left-addon">
+                <i class="icon icon-search"></i>
+                <input type="text" class="form-control ng-pristine ng-valid" localize="placeholder" placeholder="Type to search..." ng-model="searchFilter" prevent-enter-submit="" no-dirty-check="" ng-change="search(searchFilter)">
+            </div>
+        </form>
+    </div>
+    
+    <div class="umb-listview" ng-if="loaded">
+        <table class="table table-striped" ng-if="results.length">
+            <thead>
+                <tr>
+                    <th style="width:25px"><input type="checkbox" ng-model="isSelectedAll" ng-click="selectAll()" /></th>
+                    <th ng-click="order('Name')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="!predicate || predicate == 'Name'"></i><localize key="name"></localize></th>
+                    <th ng-click="order('Website')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Website'"></i><localize key="pipeline_website"></localize></th>
+                    <th ng-click="order('Email')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Email'"></i><localize key="email"></localize></th>
+                    <th ng-click="order('DateUpdated')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'DateUpdated'"></i><localize key="content_updateDate"></localize></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="organisation in results">
+                <tr ng-if="!organisation.Obscured">
+                    <td>
+                        <i class="icon icon-users" ng-show="!organisation.selected"></i>
+                        <input type="checkbox" ng-model="organisation.selected" ng-class="{ 'checked' : organisation.selected }" />
+                    </td>
+                    <td><a href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ organisation.Id }}">{{ organisation.Name }}</a></td>
+                    <td><a href="{{ organisation.Website.indexOf('http') > -1 ? '' : 'http://' }}{{ organisation.Website }}" target="_blank">{{ organisation.Website }}</a></td>
+                    <td>{{ organisation.Email }}</td>
+                    <td>{{ organisation.DateUpdated | date : 'dd/MM/yyyy' }}</td>
+                </tr>
+                <tr ng-if="organisation.Obscured">
+                    <td>&nbsp;</td>
+                    <td class="obscured" colspan="5"><a class="obscured" href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ organisation.Id }}">{{ organisation.Name }}</a></td>
+                </tr>
+            </tbody>
+            <tfoot ng-show="totalPages > 1">
+                <tr>
+                    <th colspan="5">
+                        <div class="pagination pagination-right">
+                            <ul>
+                                <li ng-class="{disabled: currentPage == 1}">
+                                    <a href ng-click="prevPage()">Prev</a>
+                                </li>
+                                <li ng-class="{active: currentPage == $index+1 }" ng-repeat="i in getNumber(totalPages) track by $index" ng-click="setPage($index+1)"><span>{{$index+1}}</span></li>
+                                <li ng-class="{disabled: currentPage == totalPages}">
+                                    <a href ng-click="nextPage()">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>        
+    </div>
+    <div ng-if="loaded && (!results || results.length == 0)" class="center">
+        <button ng-if="!statusId" prevent-default onclick="location.href='#/pipelineCrm/organisationTree/edit/-1?create'" class="btn btn-large big-plus"><i class="icon-add icon-th-large"></i></button>
+        <h5 class="center"><localize key="pipeline_notFound">No items found.</localize></h5>
+    </div>
+    <div ng-if="!loaded" class="center">
+        <h5 class="center"><localize key="general_loading">Loading</localize>...</h5>
+    </div>
+</div>

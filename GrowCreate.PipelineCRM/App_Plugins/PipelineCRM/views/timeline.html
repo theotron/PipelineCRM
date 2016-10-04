@@ -1,0 +1,77 @@
+﻿<div class="umb-pane" ng-controller="Pipeline.Timeline">
+    
+    <div class="summary well row" ng-if="parentType == 'pipeline'">
+        <div class="span4">
+            <div class="label label-won">{{ parent.Status.Name || 'Unassigned' }}</div>
+            <h4>{{ parent.Contact ? parent.Contact.Name : parent.Organisation.Name }}</h4>
+        </div>
+        <div class="span2">
+            <strong><localize key="pipeline_value">Value</localize></strong>
+            <br />{{ parent.Value | toNumber | currency }}
+        </div>
+        <div class="span2">
+            <strong><localize key="pipeline_probability">Probability</localize></strong>
+            <br />{{ parent.Probability }}%
+        </div>
+        <div class="span2">
+            <strong><localize key="pipeline_adjustedValue">Adjusted</localize></strong>
+            <br />{{ parent | adjustedValue | currency }}
+        </div>
+        <div class="span2">
+            <strong><localize key="pipeline_completeDate">Closing</localize></strong>
+            <br />{{ parent.DateComplete | date : 'dd/MM/yyyy' }}
+        </div>
+    </div>
+    <p class="text-center">
+        <button prevent-default class="btn btn-large big-plus" ng-click="editTask()"><i class="icon-add icon-th-large"></i></button>
+    </p>
+    <div ng-repeat="month in months">
+        <h5 ng-if="month.tasks">{{ month.title }}</h5>
+        <div class="repeater" ng-repeat="task in month.tasks | orderBy: ['DateDue','DateCreated'] : true">
+            <div class="row">
+                <div ng-class="{'span11':!summary}" class="touchpoint" ng-class="{task: !task.Done, overdue: !task.Done && task.Overdue > 0}" ng-if="task.DateDue && task.DateDue != '0001-01-01T00:00:00'">
+                    <img src="http://www.gravatar.com/avatar/{{ task.UserAvatar }}?s=40" alt="{{ task.UserName }}" class="avatar">
+                    <p>
+                        <input type="checkbox" ng-click="toggleTask(task)" ng-checked="task.Done" />
+                        <span ng-style="task.Done && {'text-decoration': 'line-through'}">
+                            <span class="label label-inverse">{{ task.Type }}</span>
+                            <span class="note">{{ task.Description }}</span>
+                        </span>
+                        <small ng-if="task.Media.length > 0" class="files">
+                            <span ng-repeat="file in task.Media"><a href="{{ file.Url }}" target="_blank"><i class="icon-umb-content"></i>{{ file.Name }}</a><br /></span>
+                        </small>
+                        <small ng-if="parentType == 'user' && (task.ContactId || task.PipelineId || task.OrganisationId)">
+                            <localize key="pipeline_linkedTo">Linked to</localize>
+                            <a href="#/pipelineCrm/contactTree/edit/{{ task.ContactId}}" ng-if="task.Contact">{{ task.Contact.Name }}</a>
+                            <a href="#/pipelineCrm/pipelineCrmTree/edit/{{ task.PipelineId}}" ng-if="task.Pipeline">{{ task.Pipeline.Name }}</a>
+                            <a href="#/pipelineCrm/organisationTree/edit/{{ task.OrganisationId}}" ng-if="task.Organisation">{{ task.Organisation.Name }}</a>
+                        </small>
+                        <small>
+                            <localize key="pipeline_assignedTo">Assigned to</localize> {{ task.UserName }},
+                            <span ng-if="!task.Done && task.DateDue">due {{ task.DateDue | date:'dd/MM/yyyy HH:mm' }}</span>
+                            <span ng-if="task.Done">completed {{ task.DateComplete | date:'dd/MM/yyyy HH:mm' }}</span>
+                            <span class="badge badge-warning" ng-show="!task.Done && task.Overdue > 0">{{ task.Overdue }} <localize key="pipeline_daysOverdue">days overdue</localize></span>
+                        </small>
+                    </p>
+                </div>
+                <div ng-class="{'span11':!summary}" class="touchpoint" ng-if="!task.DateDue || task.DateDue == '0001-01-01T00:00:00'">
+                    <img src="http://www.gravatar.com/avatar/{{ task.UserAvatar }}?s=40" alt="{{ task.Member.Name || task.UserName }}" class="avatar">
+                    <p>
+                        <span class="label label-inverse">{{ task.Type }}</span>
+                        <span class="note">{{ task.Description }}</span>
+                        <small ng-if="task.Media.length > 0" class="files">
+                            <span ng-repeat="file in task.Media"><a href="{{ file.Url }}" target="_blank"><i class="icon-umb-content"></i>{{ file.Name }}</a><br /></span>
+                        </small>
+                        <small><localize key="pipeline_addedBy">Added by</localize> {{ task.Member.Name || task.UserName }}, {{ task.DateCreated  | date:'dd/MM/yyyy HH:mm' }}</small>
+                    </p>
+                </div>
+                <div class="span1 text-right" ng-if="!summary">
+                    <button prevent-default class="btn btn-mini" ng-click="editTask(task)"><i class="icon icon-edit"></i></button>
+                    <!--<button prevent-default class="btn btn-mini" ng-click="shareTask(task)"><i class="icon icon-share"></i></button>-->
+                    <button prevent-default class="btn btn-mini" ng-click="deleteTask(task)"><i class="icon icon-delete"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5 ng-if="!tasks || !tasks.length" class="center"><localize key="pipeline_notFound">No items found.</localize></h5>
+</div>

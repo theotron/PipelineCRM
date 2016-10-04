@@ -1,0 +1,18 @@
+#How to package up Pipeline as a Nuget package
+
+1. Download Nuget (cli tool).
+2. Run "nuget spec" in the deploy folder.
+3. Edit the Package.nuspec file.
+4. Put required files into the content folder.
+5. Put DLLs in the lib folder.
+6. Run "nuget pack".
+
+##Notes
+
+-Configs can be merged by appending ".transform" onto the end of the file name.
+-A Powershell script can be run by placing an "install.ps1" file in the tools folder.
+-There may be some programatic way to add Pipeline to the list of installed packages in Umbraco?
+
+#How to install the package
+
+1. In VS, run "Install-Package Pipeline -Source C:\Path\To\Package\Containing\Folder" in the Package Manager Console.
