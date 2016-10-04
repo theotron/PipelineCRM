@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dashBoard>
+  <section alias="StartupPipelineCrmDashboardSection">
+    <areas>
+      <area>pipelineCrm</area>
+    </areas>
+    <tab caption="My board">
+      <control>/app_plugins/PipelineCRM/backoffice/dashboards/pipelines.html</control>
+    </tab>
+  </section>
+</dashBoard>

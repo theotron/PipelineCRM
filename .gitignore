@@ -138,7 +138,7 @@ publish/
 *.publishproj
 
 # NuGet Packages
-/Nuget/content/*
+/Nuget/content/App_Plugins/
 /Nuget/lib/*
 *.nupkg
 # The packages folder can be ignored because of Package Restore
@@ -204,5 +204,4 @@ ExamineIndexes/
 # Solution
 **/TestWebApp/*
 **/TestWebAppWithPackage/*
-
-
+GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/pipeline.min.js

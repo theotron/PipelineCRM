@@ -1,0 +1,33 @@
+{
+  "name": "PipelineCRM",
+  "version": "1.0.0",
+  "description": "Pipeline CRM is embedded into the Umbraco CMS, giving you seamless integration with your website’s content, media and users. Use Pipeline CRM for true personalisation with extranets, targeted file sharing and document management.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theotron/PipelineCRM.git"
+  },
+  "keywords": [
+    "umbraco",
+    "cms",
+    "crm",
+    "pipeline",
+    "pipelinecrm"
+  ],
+  "author": "Theo Paraskevopoulos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theotron/PipelineCRM/issues"
+  },
+  "homepage": "https://github.com/theotron/PipelineCRM",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^2.0.0"
+  }
+}
