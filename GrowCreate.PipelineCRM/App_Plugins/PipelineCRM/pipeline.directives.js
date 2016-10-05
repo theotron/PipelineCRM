@@ -79,7 +79,6 @@ angular.module('umbraco.directives')
                 parent: '=',
                 summary: '='
             },
-            replace: true,
             templateUrl: '/App_Plugins/PipelineCRM/views/timeline.html'
         };
     })
@@ -93,7 +92,6 @@ angular.module('umbraco.directives')
                 organisationId: '=',
                 contactId: '='
             },
-            replace: true,
             templateUrl: function(tElement, tAttrs) {
                 return '/App_Plugins/PipelineCRM/views/' + tAttrs.templateUrl;
             }
