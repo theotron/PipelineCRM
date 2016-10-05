@@ -205,3 +205,5 @@ ExamineIndexes/
 **/TestWebApp/*
 **/TestWebAppWithPackage/*
 GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/pipeline.min.js
+GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/css/pipeline.min.css
+GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/css/pipeline.min.css.map
