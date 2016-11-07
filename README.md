@@ -12,13 +12,13 @@ _A CRM for the Umbraco back-office - form workflow, personalisation and more..._
 
 In Visual Studio, open up the Package Manager Console and type the following:
 
-```install-package GrowCreate.PipelineCRM <project name>```
+```Install-Package PipelineCRM <project name>```
 
 **Using NuGet locally**
 
 If you would rather build PipelineCRM locally and install from the created files, follow the build guide below, followed by running the following in the Package Manager Console (in Visual Studio):
 
-```install-package GrowCreate.PipelineCRM <project name> -source C:\path\to\nupkg\containing\folder```
+```Install-Package PipelineCRM <project name> -source C:\path\to\nupkg\containing\folder```
 
 ## How to build
 
