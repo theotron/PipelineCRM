@@ -6,7 +6,7 @@
     </umb-header>
     <umb-tab-view>
         <div ng-controller="Pipeline.Dashboards.Tasks" class="pipeline">
-            <pipeline-timeline tasks="tasks" parent-type="'user'" parent="user"></pipeline-timeline>
+            <pipeline-timeline ng-if="loaded" tasks="tasks" parent-type="'user'" parent="user"></pipeline-timeline>
         </div>
     </umb-tab-view>
 </umb-panel>
