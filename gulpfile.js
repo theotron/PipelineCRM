@@ -16,7 +16,8 @@ var src = {
     css: './GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/css/pipeline.css',
     scripts: [
         './GrowCreate.PipelineCRM/App_Plugins/**/*.js',
-        '!./GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/pipeline.min.js',
+        '!./GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/pipeline.js',
+        '!./GrowCreate.PipelineCRM/App_Plugins/PipelineCRM/pipeline.min.js'
     ],
     appPlugins: [ // Needs to be like this until I can include everything but not .js files (but still .min.js).
         './GrowCreate.PipelineCRM/App_Plugins/**/*.html',
