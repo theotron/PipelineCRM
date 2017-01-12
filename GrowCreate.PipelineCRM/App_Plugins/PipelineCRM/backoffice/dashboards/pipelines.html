@@ -16,7 +16,7 @@
                 <div class="card-title">
                     {{ pipeline.Name }}
                 </div>
-                <img src="http://www.gravatar.com/avatar/{{ pipeline.UserAvatar }}?s=30" alt="{{ pipeline.UserName }}" class="avatar">
+                <img src="//www.gravatar.com/avatar/{{ pipeline.UserAvatar }}?s=30" alt="{{ pipeline.UserName }}" class="avatar">
                 <small>{{ pipeline.OrganisationId > 0 ? pipeline.Organisation.Name : pipeline.Contact.Name }}</small>
                 <small ng-if="pipeline.Value">{{ pipeline | adjustedValue | currency }}</small>
                 <small ng-if="!pipeline.Value">{{ pipeline.DateCreated  | date : 'dd/MM/yyyy'}}</small>

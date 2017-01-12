@@ -26,7 +26,7 @@
         <button prevent-default class="btn btn-large big-plus" ng-click="editTask()"><i class="icon-add icon-th-large"></i></button>
     </p>
     <div ng-repeat="month in months">
-        <h5 ng-if="month.tasks">{{ month.title }}</h5>
+        <h5 ng-if="month.tasks">{{ month.title }}</h5>        
         <div class="repeater" ng-repeat="task in month.tasks | orderBy: ['DateDue','DateCreated'] : true">
             <div class="row">
                 <div ng-class="{'span11':!summary}" class="touchpoint" ng-class="{task: !task.Done, overdue: !task.Done && task.Overdue > 0}" ng-if="task.DateDue && task.DateDue != '0001-01-01T00:00:00'">
@@ -55,7 +55,7 @@
                     </p>
                 </div>
                 <div ng-class="{'span11':!summary}" class="touchpoint" ng-if="!task.DateDue || task.DateDue == '0001-01-01T00:00:00'">
-                    <img src="http://www.gravatar.com/avatar/{{ task.UserAvatar }}?s=40" alt="{{ task.Member.Name || task.UserName }}" class="avatar">
+                    <img src="//www.gravatar.com/avatar/{{ task.UserAvatar }}?s=40" alt="{{ task.Member.Name || task.UserName }}" class="avatar">
                     <p>
                         <span class="label label-inverse">{{ task.Type }}</span>
                         <span class="note">{{ task.Description }}</span>
@@ -73,5 +73,5 @@
             </div>
         </div>
     </div>
-    <h5 ng-if="!tasks || !tasks.length" class="center"><localize key="pipeline_notFound">No items found.</localize></h5>
+    <h5 ng-if="!months || !months.length" class="center"><localize key="pipeline_notFound">No items found.</localize></h5>
 </div>
