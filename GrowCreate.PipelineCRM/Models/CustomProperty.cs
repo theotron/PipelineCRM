@@ -22,7 +22,7 @@ namespace GrowCreate.PipelineCRM.Models
         public string description { get; set; }
         public string view { get; set; }
         public string value { get; set; }
-        public CustomPropertyConfig config { get; set; }
+        public dynamic config { get; set; }
     }
 
     public class CustomPropertyConfig
@@ -34,5 +34,6 @@ namespace GrowCreate.PipelineCRM.Models
     {
         public int id { get; set; }
         public string value { get; set; }
+        public string alias { get; set; }
     }
 }

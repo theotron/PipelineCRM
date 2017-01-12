@@ -17,6 +17,8 @@ using GrowCreate.PipelineCRM.Helpers;
 using Umbraco.Core.Configuration;
 using GrowCreate.PipelineCRM.Config;
 using GrowCreate.PipelineCRM.Services;
+using GrowCreate.PipelineCRM.CustomAreas;
+using GrowCreate.PipelineCRM.Extensions;
 
 namespace GrowCreate.PipelineCRM.Trees
 {
@@ -32,6 +34,19 @@ namespace GrowCreate.PipelineCRM.Trees
         private IEnumerable<Models.OrgType> GetOrgTypes()
         {
             return new OrgTypeApiController().GetAll();
+        }
+
+        public static List<ICustomArea> GetCustomAreas()
+        {
+            var iType = typeof(ICustomArea);
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetLoadableTypes())
+                .Where(p => iType.IsAssignableFrom(p) && p.IsClass)
+                .Select(x => Activator.CreateInstance(x) as ICustomArea)
+                .OrderBy(x => x.Name);
+
+            return types.OrderBy(x => x.SortOrder).ToList();
+
         }
 
         private string GetTranslation(string key)
@@ -50,6 +65,7 @@ namespace GrowCreate.PipelineCRM.Trees
             var nodes = new TreeNodeCollection();
             var mainRoute = "/pipelineCrm/pipelineCrmTree";
             bool useBoard = PipelineConfig.GetConfig().AppSettings.UseBoard;
+            var customAreas = GetCustomAreas();
 
             if (id == Constants.System.Root.ToInvariantString())
             {
@@ -102,19 +118,33 @@ namespace GrowCreate.PipelineCRM.Trees
                     )
                 );
 
-                if (PipelineProService.Check()){
+                nodes.Add(
+                    CreateTreeNode(
+                        "segments",
+                        "-1",
+                        queryStrings,
+                        GetTranslation("pipeline/segments"),
+                        "icon-users",
+                        true,
+                        mainRoute + "/segments/0"
+                    )
+                );
+
+                // get custom building blocks
+                foreach(var type in customAreas)
+                {
                     nodes.Add(
                         CreateTreeNode(
-                            "segments",
+                            type.Alias,
                             "-1",
                             queryStrings,
-                            GetTranslation("pipeline/segments"),
-                            "icon-users",
-                            true,
-                            mainRoute + "/segments/0"
+                            type.Name,
+                            type.Icon,
+                            type.Folders.Any(),
+                            mainRoute + "/" + type.Url
                         )
                     );
-                } 
+                }
 
                 nodes.Add(
                     CreateTreeNode(
@@ -166,7 +196,7 @@ namespace GrowCreate.PipelineCRM.Trees
                     queryStrings,
                     GetTranslation("pipeline/none"),
                     "icon-dashboard",
-                    false,
+                    false,  
                     "/pipelineCrm/pipelineCrmTree/browse/-2"
                     )
                 );
@@ -294,19 +324,36 @@ namespace GrowCreate.PipelineCRM.Trees
                     )
                 );
 
-                if (PipelineProService.Check())
+                
+                nodes.Add(
+                    CreateTreeNode(
+                        "0",
+                        id,
+                        queryStrings,
+                        GetTranslation("pipeline/segments"),
+                        "icon-users",
+                        false,
+                        mainRoute + "/segments/-1"
+                    )
+                );
+            }
+
+            else if (customAreas.Any(x => x.Alias == id))
+            {
+                var area = customAreas.FirstOrDefault(x => x.Alias == id);
+                
+                // list all orgs
+                foreach (var folder in area.Folders)
                 {
-                    nodes.Add(
-                        CreateTreeNode(
-                            "0",
-                            id,
-                            queryStrings,
-                            GetTranslation("pipeline/segments"),
-                            "icon-users",
-                            false,
-                            mainRoute + "/segments/-1"
-                        )
-                    );
+                    var newTreeNode = CreateTreeNode(
+                        folder.Url + "_" + area.Alias,
+                        id,
+                        queryStrings,
+                        folder.Name,
+                        area.Icon,
+                        false,
+                        mainRoute + "/" + folder.Url);
+                    nodes.Add(newTreeNode);
                 }
             }
 

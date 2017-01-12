@@ -14,6 +14,7 @@ using Umbraco.Core.PropertyEditors;
 using Newtonsoft.Json;
 using GrowCreate.PipelineCRM.Services;
 using GrowCreate.PipelineCRM.Config;
+using System.Dynamic;
 
 namespace GrowCreate.PipelineCRM.Controllers
 {
@@ -83,9 +84,9 @@ namespace GrowCreate.PipelineCRM.Controllers
                 {
                     foreach (var prop in props)
                     {
-                        var config = new CustomPropertyConfig();
-
+                        dynamic config = new ExpandoObject();
                         var prevalues = Services.DataTypeService.GetPreValuesCollectionByDataTypeId(prop.DataTypeDefinitionId).PreValuesAsDictionary;
+
                         if (prevalues.Any())
                         {
                             var items = new List<CustomPropertyPreValue>();
@@ -94,10 +95,18 @@ namespace GrowCreate.PipelineCRM.Controllers
                                 items.Add(new CustomPropertyPreValue()
                                 {
                                     id = preval.Value.Id,
+                                    alias = preval.Key,
                                     value = preval.Value.Value
                                 });
                             }
+
                             config.items = items;
+
+                            // marks as multiPicker if it has min/max number 
+                            if (items.Any(x => x.alias == "minNumber" || x.alias == "maxNumber"))
+                            {
+                                config.multiPicker = "1";
+                            }
                         }
 
                         var newProp = new CustomProperty()

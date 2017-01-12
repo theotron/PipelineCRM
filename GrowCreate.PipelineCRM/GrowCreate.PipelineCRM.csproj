@@ -332,6 +332,7 @@
     <Compile Include="Controllers\SegmentTypeApiController.cs" />
     <Compile Include="Controllers\StatusApiController.cs" />
     <Compile Include="Controllers\TaskApiController.cs" />
+    <Compile Include="Extensibility\CustomAreas\ICustomArea.cs" />
     <Compile Include="Services\DataServices\ContactDbService.cs" />
     <Compile Include="Services\DataServices\OrganisationDbService.cs" />
     <Compile Include="Services\DataServices\PipelineDbService.cs" />
@@ -368,7 +369,6 @@
     <Compile Include="Services\DbService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\OrganisationService.cs" />
-    <Compile Include="Services\PipelineProService.cs" />
     <Compile Include="Services\PipelineService.cs" />
     <Compile Include="Services\SegmentCriteriaService.cs" />
     <Compile Include="Services\SegmentService.cs" />
