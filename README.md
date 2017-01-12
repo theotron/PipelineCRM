@@ -12,13 +12,13 @@ _A CRM for the Umbraco back-office - form workflow, personalisation and more..._
 
 In Visual Studio, open up the Package Manager Console and type the following:
 
-```install-package GrowCreate.PipelineCRM <project name>```
+```Install-Package PipelineCRM <project name>```
 
 **Using NuGet locally**
 
 If you would rather build PipelineCRM locally and install from the created files, follow the build guide below, followed by running the following in the Package Manager Console (in Visual Studio):
 
-```install-package GrowCreate.PipelineCRM <project name> -source C:\path\to\nupkg\containing\folder```
+```Install-Package PipelineCRM <project name> -source C:\path\to\nupkg\containing\folder```
 
 ## How to build
 
@@ -41,7 +41,7 @@ If you would rather build PipelineCRM locally and install from the created files
 
 If you want to setup this project so you can start editing code in a fast manner, then you can do so using this guide:
 
-1. Install the package to your Umbraco website using NuGet
+1. Install the package to your Umbraco website using NuGet (I recommend following the Build guide above and creating a fresh NuGet package using the `gulp pack` command, followed by installing the new pack using the local NuGet install command described in the Installation guide above)
 2. Clone this repository to your local filesystem
 3. Open a terminal in the root of the cloned folder
 4. Type `npm install` to get all Gulp dependencies
