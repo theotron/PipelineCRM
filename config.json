@@ -1,6 +1,6 @@
 {
-    "umbraco": {
-        "appPlugins": "\\path\\to\\umbraco\\website\\app_plugins\\",
-        "dlls": "\\path\\to\\umbraco\\website\\bins\\"
-    }
+	"umbracoWebsites":
+	[
+		"C:/Websites/PipelineDXS/Umbraco.Web/"
+	]
 }

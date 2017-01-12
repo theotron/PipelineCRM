@@ -13,9 +13,13 @@
     }
   },
   {
-    "outputFileName": "App_Plugins/PipelineCRM/Css/pipeline.css",
+    "outputFileName": "App_Plugins/PipelineCRM/Css/pipeline.min.css",
     "inputFiles": [
       "App_Plugins/PipelineCRM/Css/pipeline.css"
-    ]
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    }
   }
 ]

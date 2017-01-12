@@ -78,7 +78,7 @@ angular.module('umbraco.directives')
                 parentType: '=',
                 parent: '=',
                 summary: '='
-            },
+            },            
             templateUrl: '/App_Plugins/PipelineCRM/views/timeline.html'
         };
     })

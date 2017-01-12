@@ -364,7 +364,7 @@ angular.module("umbraco").controller("Pipeline.ContactEditController",
 	        });
 	    }
 
-	    // save contact
+	   	// save contact
 	    $scope.save = function (contact) {
 
 	        // stringify custom props
@@ -1230,7 +1230,7 @@ angular.module("umbraco").controller("Pipeline.Grid",
 	    $scope.reverse = false;
 	    $scope.searchTerm = '';
 
-	    function fetchData() {
+	    function fetchData() {           
 
 	        $scope.loaded = false;
 	        if ($scope.type == 'P') {
@@ -1421,12 +1421,12 @@ angular.module("umbraco").controller("Pipeline.Grid",
 	});
 
 angular.module("umbraco").controller("Pipeline.Timeline",
-	function ($scope, $routeParams, $filter, pipelineResource, dialogService, taskResource, notificationsService) {
+	function ($scope, $timeout, $routeParams, $filter, pipelineResource, dialogService, taskResource, notificationsService) {
 
 	    $scope.tasks = $scope.tasks || [];
 
 	    // mark task with date, and make date repeater
-	    var splitTimeline = function () {
+	    $scope.splitTimeline = function () {	        
 	        $scope.months = [];
 	        if ($filter('orderBy')($scope.tasks,['DateDue','DateCreated'],true)) {
 	            $scope.tasks.forEach(function (task) {
@@ -1455,11 +1455,6 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	        };
 	    };
 
-	    $scope.$watch('tasks', function () {
-	        splitTimeline();
-	    });
-
-
 	    // create, edit and delete  task
 	    $scope.editTask = function (task) {
 
@@ -1480,14 +1475,13 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                     newTask = $scope.addParentId(newTask);
 
 	                taskResource.saveTask(newTask).then(function (response) {
-	                    var taskSaved = response.data;	                    
+	                    var taskSaved = response.data;
 	                    if (task) {
 	                        task = taskSaved;
 	                    } else {
 	                        $scope.tasks.push(taskSaved);
-                        }
-
-	                    splitTimeline();
+	                    }
+	                    $scope.splitTimeline();
 	                    notificationsService.success("OK", "Touchpoint has been saved");
 
 	                });
@@ -1507,7 +1501,6 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                             var tasks = $scope.tasks,
                                 idx = _.findWhere(tasks, { Id: taskId });
                             tasks.splice(idx, 1);
-                            splitTimeline();
                             notificationsService.success("OK", "Task has been deleted");
                         });
                     }
@@ -1545,6 +1538,12 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	        }
 	        return newTask;
 	    };
+
+	    $scope.$watchCollection('[parent,tasks,parentType,summary]', function () {
+	        if ($scope.parent)
+	            $scope.tasks = $scope.parent.Tasks;
+	            $scope.splitTimeline(); // kick it!
+	    });
 
     });
 
@@ -1882,6 +1881,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                 $scope.dialogData.DateDue = $scope.isTask ? $scope.taskDatepicker.value : '';
                 $scope.dialogData.Reminder = $scope.isTask ? $scope.reminderDatepicker.value : '';
                 $scope.dialogData.Overdue = moment().diff($scope.dialogData.DateDue, 'days');
+                console.log($scope.dialogData);
                 $scope.submit($scope.dialogData);
             };
 
@@ -2048,8 +2048,7 @@ angular.module('umbraco.directives')
                 parentType: '=',
                 parent: '=',
                 summary: '='
-            },
-            replace: true,
+            },            
             templateUrl: '/App_Plugins/PipelineCRM/views/timeline.html'
         };
     })
@@ -2063,7 +2062,6 @@ angular.module('umbraco.directives')
                 organisationId: '=',
                 contactId: '='
             },
-            replace: true,
             templateUrl: function(tElement, tAttrs) {
                 return '/App_Plugins/PipelineCRM/views/' + tAttrs.templateUrl;
             }
