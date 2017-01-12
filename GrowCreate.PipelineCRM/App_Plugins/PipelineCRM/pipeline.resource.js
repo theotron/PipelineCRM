@@ -244,7 +244,10 @@
             getPropsByType: function (type) {
                 return $http.get("/umbraco/backoffice/PipelineCrm/custompropertyapi/GetCustomProps?type=" + type);
             },
-            getPropsByDocType: function (name) {
+            getPropsByDocType: function (alias) {
+                return $http.get("/umbraco/backoffice/PipelineCrm/custompropertyapi/GetCustomProps?docTypeAlias=" + alias);
+            },
+            getSegmentProps: function (name) {
                 return $http.get("/umbraco/backoffice/PipelineCrm/custompropertyapi/GetCriteriaProps?criteriaName=" + name);
             }
         }

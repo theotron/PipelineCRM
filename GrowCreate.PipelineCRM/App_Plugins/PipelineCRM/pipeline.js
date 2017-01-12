@@ -797,7 +797,7 @@ angular.module("umbraco").controller("Pipeline.SegmentEditController",
 	    // get criteria params
 	    $scope.getCriteriaProps = function () {
 
-	        propResource.getPropsByDocType($scope.segment.Criteria).then(function (response) {
+	        propResource.getSegmentProps($scope.segment.Criteria).then(function (response) {
 
 	            $scope.criteriaProps = _.pluck(response.data, 'items')[0] || [];
 	            $scope.criteriaProps.reverse().forEach(function (tab) {
@@ -2463,7 +2463,10 @@ angular.module("umbraco.resources")
             getPropsByType: function (type) {
                 return $http.get("/umbraco/backoffice/PipelineCrm/custompropertyapi/GetCustomProps?type=" + type);
             },
-            getPropsByDocType: function (name) {
+            getPropsByDocType: function (alias) {
+                return $http.get("/umbraco/backoffice/PipelineCrm/custompropertyapi/GetCustomProps?docTypeAlias=" + alias);
+            },
+            getSegmentProps: function (name) {
                 return $http.get("/umbraco/backoffice/PipelineCrm/custompropertyapi/GetCriteriaProps?criteriaName=" + name);
             }
         }
