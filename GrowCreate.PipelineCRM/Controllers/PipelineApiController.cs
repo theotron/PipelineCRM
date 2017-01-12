@@ -69,7 +69,7 @@ namespace GrowCreate.PipelineCRM.Controllers
         {
             int allUsers;
             var userService = ApplicationContext.Current.Services.UserService;
-            return userService.GetAll(0, 1000, out allUsers).Where(x => x.AllowedSections.Contains("pipeline"));
+            return userService.GetAll(0, 1000, out allUsers).Where(x => x.AllowedSections.Contains("pipelineCrm"));
         }
 
         public IEnumerable<Pipeline> GetByStatusId(int id, bool getLinks = false)
