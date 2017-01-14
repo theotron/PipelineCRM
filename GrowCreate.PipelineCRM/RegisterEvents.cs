@@ -117,7 +117,7 @@ namespace GrowCreate.PipelineCRM
             TranslationHelper.AddTranslations();
             
             // add admin user to pipeline if not already added
-            AppPermissions.Grant("pipeline");
+            AppPermissions.Grant("pipelineCrm");
 
             // Copy icon
             if (!File.Exists(HttpContext.Current.Server.MapPath("/umbraco/images/tray/PipelineCRM-icon.png")))

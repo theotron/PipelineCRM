@@ -192,8 +192,6 @@ angular.module("umbraco").controller("Pipeline.PipelineEditController",
 	            dialogData: { Type: 'opportunity' },
 	            callback: function (data) {
 
-	                //console.log(data.deleteLinks);
-
 	                pipelineResource.deleteById($scope.pipeline.Id, data.deleteLinks).then(function (pipeline) {
 	                    notificationsService.success("OK", "The opportunity has been deleted.");
 	                    location.href = '#/pipelineCrm/pipelineCrmTree/browse/-1';
@@ -474,8 +472,6 @@ angular.module("umbraco").controller("Pipeline.ContactEditController",
 	                organisationResource.saveOrganisation(data).then(function (response) {
 
 	                    var newOrg = response.data;
-	                    //console.log(newOrg);
-
 	                    $scope.contact.Organisations = $scope.contact.Organisations || [];
 	                    $scope.contact.Organisations.push(newOrg);
 	                    $scope.contact.OrganisationIds = _.pluck($scope.contact.Organisations, 'Id').join(',');
@@ -1422,9 +1418,7 @@ angular.module("umbraco").controller("Pipeline.Grid",
 
 angular.module("umbraco").controller("Pipeline.Timeline",
 	function ($scope, $timeout, $routeParams, $filter, pipelineResource, dialogService, taskResource, notificationsService) {
-
-	    $scope.tasks = $scope.tasks || [];
-
+	    
 	    // mark task with date, and make date repeater
 	    $scope.splitTimeline = function () {	        
 	        $scope.months = [];
@@ -1479,6 +1473,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	                    if (task) {
 	                        task = taskSaved;
 	                    } else {
+	                        $scope.tasks = $scope.tasks || [];
 	                        $scope.tasks.push(taskSaved);
 	                    }
 	                    $scope.splitTimeline();
@@ -1501,6 +1496,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                             var tasks = $scope.tasks,
                                 idx = _.findWhere(tasks, { Id: taskId });
                             tasks.splice(idx, 1);
+                            $scope.splitTimeline();
                             notificationsService.success("OK", "Task has been deleted");
                         });
                     }
@@ -1540,9 +1536,9 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	    };
 
 	    $scope.$watchCollection('[parent,tasks,parentType,summary]', function () {
-	        if ($scope.parent)
-	            $scope.tasks = $scope.parent.Tasks;
+	        if ($scope.parent) {
 	            $scope.splitTimeline(); // kick it!
+	        }
 	    });
 
     });
@@ -1881,7 +1877,6 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                 $scope.dialogData.DateDue = $scope.isTask ? $scope.taskDatepicker.value : '';
                 $scope.dialogData.Reminder = $scope.isTask ? $scope.reminderDatepicker.value : '';
                 $scope.dialogData.Overdue = moment().diff($scope.dialogData.DateDue, 'days');
-                console.log($scope.dialogData);
                 $scope.submit($scope.dialogData);
             };
 

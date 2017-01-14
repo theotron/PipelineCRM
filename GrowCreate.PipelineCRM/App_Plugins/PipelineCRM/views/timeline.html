@@ -30,7 +30,7 @@
         <div class="repeater" ng-repeat="task in month.tasks | orderBy: ['DateDue','DateCreated'] : true">
             <div class="row">
                 <div ng-class="{'span11':!summary}" class="touchpoint" ng-class="{task: !task.Done, overdue: !task.Done && task.Overdue > 0}" ng-if="task.DateDue && task.DateDue != '0001-01-01T00:00:00'">
-                    <img src="http://www.gravatar.com/avatar/{{ task.UserAvatar }}?s=40" alt="{{ task.UserName }}" class="avatar">
+                    <img src="//www.gravatar.com/avatar/{{ task.UserAvatar }}?s=40" alt="{{ task.UserName }}" class="avatar">
                     <p>
                         <input type="checkbox" ng-click="toggleTask(task)" ng-checked="task.Done" />
                         <span ng-style="task.Done && {'text-decoration': 'line-through'}">

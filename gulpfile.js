@@ -15,8 +15,8 @@ var src = {
 gulp.task('pack-pipeline', function() {
 	Promise.all([
 		new Promise(function (resolve, reject) {
-			gulp.src(src.macroPartials)
-				.pipe(gulp.dest('./Nuget/content/Views/MacroPartials'))
+			gulp.src(src.binaries)
+				.pipe(gulp.dest('./Nuget/lib/net45'))
 				.on('end', resolve);
 		}),
 		new Promise(function (resolve, reject) {

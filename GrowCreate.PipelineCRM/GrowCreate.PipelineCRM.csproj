@@ -252,6 +252,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\PipelineCRM\PipelineCRM-icon.png" />
     <Content Include="packages.config" />
     <Content Include="App_Plugins\PipelineCRM\package.manifest" />
     <Content Include="App_Plugins\PipelineCRM\temp\dashboard.config.install.xdt" />
