@@ -37,6 +37,7 @@
                             <span class="label label-inverse">{{ task.Type }}</span>
                             <span class="note">{{ task.Description }}</span>
                         </span>
+                        <br />
                         <small ng-if="task.Media.length > 0" class="files">
                             <span ng-repeat="file in task.Media"><a href="{{ file.Url }}" target="_blank"><i class="icon-umb-content"></i>{{ file.Name }}</a><br /></span>
                         </small>
@@ -48,8 +49,8 @@
                         </small>
                         <small>
                             <localize key="pipeline_assignedTo">Assigned to</localize> {{ task.UserName }},
-                            <span ng-if="!task.Done && task.DateDue">due {{ task.DateDue | date:'dd/MM/yyyy HH:mm' }}</span>
-                            <span ng-if="task.Done">completed {{ task.DateComplete | date:'dd/MM/yyyy HH:mm' }}</span>
+                            <span ng-if="!task.Done && task.DateDue">due {{ task.DateDue | date:'dd/MM/yyyy' }}</span>
+                            <span ng-if="task.Done">completed {{ task.DateComplete | date:'dd/MM/yyyy' }}</span>
                             <span class="badge badge-warning" ng-show="!task.Done && task.Overdue > 0">{{ task.Overdue }} <localize key="pipeline_daysOverdue">days overdue</localize></span>
                         </small>
                     </p>
@@ -62,7 +63,7 @@
                         <small ng-if="task.Media.length > 0" class="files">
                             <span ng-repeat="file in task.Media"><a href="{{ file.Url }}" target="_blank"><i class="icon-umb-content"></i>{{ file.Name }}</a><br /></span>
                         </small>
-                        <small><localize key="pipeline_addedBy">Added by</localize> {{ task.Member.Name || task.UserName }}, {{ task.DateCreated  | date:'dd/MM/yyyy HH:mm' }}</small>
+                        <small><localize key="pipeline_addedBy">Added by</localize> {{ task.Member.Name || task.UserName }}, {{ task.DateCreated  | date:'dd/MM/yyyy' }}</small>
                     </p>
                 </div>
                 <div class="span1 text-right" ng-if="!summary">

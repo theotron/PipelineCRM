@@ -46,11 +46,11 @@ namespace GrowCreate.PipelineCRM.SurfaceControllers
                 var notifactions = CollectNotifications();
                 string notificationEmailBody = PipelineConfig.GetConfig().DigestBody.InnerHtml;                
                 string sender = PipelineConfig.GetConfig().AppSettings.DigestSender;
-                string baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/umbraco#/pipelineCrm/";
-                string subject = PipelineConfig.GetConfig().AppSettings.DigestSubject;
+                string baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/umbraco#/pipelineCrm/";                
 
                 foreach (var notification in notifactions)
                 {
+                    string subject = PipelineConfig.GetConfig().AppSettings.DigestSubject;
                     string todaysTasks = "";
                     string reminderTasks = "";
                     string overdueTasks = "";

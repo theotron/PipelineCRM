@@ -3,6 +3,10 @@ String.prototype.splice = function (idx, rem, s) {
     return (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
 };
 
+String.prototype.IsDate = function () {
+    return this && this.toString() != 'Invalid date' && this.toString().indexOf('0001-01-01') == -1;
+};
+
 String.prototype.numberify = function () {
 
     var input = this;

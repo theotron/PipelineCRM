@@ -1,4 +1,4 @@
-﻿<form class="form-group row-fluid" name="addPipelineForm" val-form-manager ng-submit="submit(dialogData)">
+﻿<form class="form-group row-fluid" name="addPipelineForm" val-form-manager ng-submit="submit(dialogData)" ng-controller="Pipeline.Dialogs.AddPipeline">
     <div class="umb-panel">
         <div class="umb-modalcolumn-header">
             <h1><localize key="general_add"></localize> <localize key="pipeline_opportunity"></localize> <localize key="pipeline_in"></localize> {{ dialogData.Status.Name }}</h1>
@@ -27,6 +27,13 @@
                 <label for="Group"><localize key="pipeline_organisation"></localize></label>
                 <div class="input-append col-xs-12 span12">
                     <input type="text" ng-model="dialogData.OrganisationName" />
+                </div>
+            </div>
+            <div class="form-group row-fluid">
+                <label for="Owner"><localize key="pipeline_owner"></localize></label>
+                <div class="input-append col-xs-12 span12">
+                    <select ng-model="dialogData.UserId"
+                            ng-options="user.Id as user.Name for user in Users"></select>                    
                 </div>
             </div>
             <div class="form-group row-fluid">

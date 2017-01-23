@@ -23,7 +23,7 @@ angular.module("umbraco").controller("Pipeline.Pipeline.Browse",
 	});
 
 angular.module("umbraco").controller("Pipeline.PipelineEditController",
-	function ($scope, $routeParams, contactResource, taskResource, pipelineResource, organisationResource, propResource, notificationsService, navigationService, dialogService, entityResource, mediaResource, iconHelper, $filter, localizationService) {
+	function ($scope, $routeParams, userService, contactResource, taskResource, pipelineResource, organisationResource, propResource, notificationsService, navigationService, dialogService, entityResource, mediaResource, iconHelper, $filter, localizationService) {
 
 	    // load UI
 	    $scope.loaded = false;
@@ -41,7 +41,9 @@ angular.module("umbraco").controller("Pipeline.PipelineEditController",
 	    contactResource.getAll().then(function (response) {
 	        $scope.Contacts = response.data;
 	    });
-
+	    userService.getCurrentUser().then(function (response) {
+	        $scope.currentUserId = response.id;
+	    });
 
 	    $scope.content = {
 	        tabs: [
@@ -51,21 +53,24 @@ angular.module("umbraco").controller("Pipeline.PipelineEditController",
 	    };
 
 	    // date pickers
-	    var datePickerConfig = {
+	    $scope.datePickerConfig = {
 	        view: 'datepicker',
 	        config: {
 	            pickDate: true,
 	            pickTime: false,
 	            pick12HourFormat: false,
-	            format: "DD/MM/YYYY"
+	            format: "DD-MM-YYYY",
 	        }
 	    };
 
-	    $scope.createdDatepicker = angular.extend({}, datePickerConfig, { value: new Date() });
-	    $scope.completeDatepicker = angular.extend({}, datePickerConfig, { value: new Date() });
+	    $scope.createdDatepicker = angular.extend({}, $scope.datePickerConfig, { value: moment() });
+	    $scope.completeDatepicker = angular.extend({}, $scope.datePickerConfig, { value: '' });
 
 	    // get doc type definition
 	    $scope.getCustomProps = function () {
+
+	        $scope.pipeline.UserId = $scope.currentUserId;
+
 	        propResource.getPropsByType('pipeline').then(function (response) {
 
 	            $scope.customprops = response.data;
@@ -113,12 +118,15 @@ angular.module("umbraco").controller("Pipeline.PipelineEditController",
 	                    };
 	                });
 	            });
+	            
+	            if ($scope.pipeline.DateCreated.IsDate()) {
+	                $scope.createdDatepicker = angular.extend({}, $scope.datePickerConfig, { value: moment($scope.pipeline.DateCreated) });
+	            }
 
-	            var createdDate = Date.parse($scope.pipeline.DateCreated) > 0 ? Date.parse($scope.pipeline.DateCreated) : new Date();
-	            var completeDate = Date.parse($scope.pipeline.DateComplete) > 0 ? Date.parse($scope.pipeline.DateComplete) : new Date();
-	            $scope.createdDatepicker.value = $filter('date')(createdDate, 'dd/MM/yyyy');
-	            $scope.completeDatepicker.value = $filter('date')(completeDate, 'dd/MM/yyyy');
-
+	            if ($scope.pipeline.DateComplete.IsDate()) {
+	                $scope.completeDatepicker = angular.extend({}, $scope.datePickerConfig, { value: moment($scope.pipeline.DateComplete) });
+	            }
+	            
 	            $scope.getCustomProps();
 	        });
 	    }
@@ -127,8 +135,8 @@ angular.module("umbraco").controller("Pipeline.PipelineEditController",
 	    $scope.save = function () {
 
 	        //unload date pickers
-	        $scope.pipeline.DateCreated = $scope.createdDatepicker.value;
-	        $scope.pipeline.DateComplete = $scope.completeDatepicker.value;
+	        $scope.pipeline.DateCreated = $scope.createdDatepicker.value ? moment($scope.createdDatepicker.value, 'DD-MM-YYYY') : '';
+	        $scope.pipeline.DateComplete = $scope.completeDatepicker.value ? moment($scope.completeDatepicker.value, 'DD-MM-YYYY') : '';
 
 	        // stringify custom props
 	        if ($scope.customprops) {
@@ -1425,7 +1433,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	        if ($filter('orderBy')($scope.tasks,['DateDue','DateCreated'],true)) {
 	            $scope.tasks.forEach(function (task) {
 
-	                var sortDate = task.DateDue.indexOf("00:00:00") == -1  ? task.DateDue : task.DateCreated,
+	                var sortDate = task.DateDue.toString().IsDate() ? task.DateDue : task.DateCreated,
                         created = new Date(sortDate),
                         month = created.getMonth(),
                         year = created.getFullYear();
@@ -1691,7 +1699,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	            },
 	            callback: function (pipeline) {
 	                pipelineResource.quickCreatePipeline(pipeline).then(function (response) {
-	                    //console.log(response.data);
+	                    console.log(response.data);
 	                    $scope.pipelines.push(response.data);
 	                    refreshBoard();
 	                    navigationService.syncTree({ tree: 'pipelineCrmTree', path: [-1, -1], forceReload: true });
@@ -1834,9 +1842,9 @@ angular.module("umbraco").controller("Pipeline.Timeline",
     );
 
     angular.module("umbraco").controller("Pipeline.Dialogs.AddTask",
-        function ($scope, $routeParams, pipelineResource, dialogService, localizationService) {
+        function ($scope, $routeParams, pipelineResource, dialogService, localizationService, userService) {
 
-            $scope.isTask = $scope.dialogData.DateDue && $scope.dialogData.DateDue != '0001-01-01T00:00:00';
+            $scope.isTask = $scope.dialogData.DateDue && $scope.dialogData.DateDue.toString().IsDate();
 
             $scope.toggleTask = function () {
                 $scope.isTask = !$scope.isTask;
@@ -1846,36 +1854,35 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                 $scope.Users = response.data;
             });
 
+            userService.getCurrentUser().then(function (response) {
+                $scope.dialogData.UserId = response.id;
+            });
+
             $scope.Types = [
                 'Meeting', 'Call', 'Email', 'Send file', 'Other' // TODO: move to settings
             ];
 
             // date picker
-            $scope.taskDatepicker = {
+            $scope.datePickerConfig = {
                 view: 'datepicker',
                 config: {
                     pickDate: true,
                     pickTime: true,
                     pick12HourFormat: false,
-                    format: "DD/MM/YYYY HH:mm"
+                    format: "DD-MM-YYYY HH:mm"
                 },
-                value: $scope.dialogData.DateDue && $scope.dialogData.DateDue.indexOf('0001-01-0') ? moment().format('DD/MM/YYYY HH:mm') : $scope.dialogData.DateDue
+                value: ''
             };
 
-            $scope.reminderDatepicker = {
-                view: 'datepicker',
-                config: {
-                    pickDate: true,
-                    pickTime: true,
-                    pick12HourFormat: false,
-                    format: "DD/MM/YYYY HH:mm"
-                },
-                value: $scope.dialogData.Reminder && $scope.dialogData.Reminder.indexOf('0001-01-0') ? ' ' : $scope.dialogData.Reminder
-            };
+            $scope.taskDatepicker = $scope.dialogData.DateDue && $scope.dialogData.DateDue.toString().IsDate() ?
+                angular.extend({}, $scope.datePickerConfig, { value: moment($scope.dialogData.DateDue) }) : $scope.datePickerConfig;
+
+            $scope.reminderDatepicker = $scope.dialogData.Reminder && $scope.dialogData.Reminder.toString().IsDate() ?
+                angular.extend({}, $scope.datePickerConfig, { value: moment($scope.dialogData.Reminder) }) : $scope.datePickerConfig; 
 
             $scope.presubmit = function () {
-                $scope.dialogData.DateDue = $scope.isTask ? $scope.taskDatepicker.value : '';
-                $scope.dialogData.Reminder = $scope.isTask ? $scope.reminderDatepicker.value : '';
+                $scope.dialogData.DateDue = $scope.isTask ? moment($scope.taskDatepicker.value, 'DD-MM-YYYY HH:mm').format() : '';
+                $scope.dialogData.Reminder = $scope.isTask && $scope.reminderDatepicker.value ? moment($scope.reminderDatepicker.value, 'DD-MM-YYYY HH:mm').format() : '';
                 $scope.dialogData.Overdue = moment().diff($scope.dialogData.DateDue, 'days');
                 $scope.submit($scope.dialogData);
             };
@@ -1923,6 +1930,20 @@ angular.module("umbraco").controller("Pipeline.Timeline",
         }
     );
 
+    angular.module("umbraco").controller("Pipeline.Dialogs.AddPipeline",
+        function ($scope, $routeParams, taskResource, pipelineResource, dialogService, labelResource, navigationService, userService) {
+
+            pipelineResource.getUsers().then(function (response) {
+                $scope.Users = response.data;                                
+            });
+
+            userService.getCurrentUser().then(function (response) {
+                $scope.dialogData.UserId = response.id;
+            });
+            
+        }
+    );
+
 /*  -------------------------
     Properties
     ------------------------- */
@@ -1966,6 +1987,10 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 
 String.prototype.splice = function (idx, rem, s) {
     return (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
+};
+
+String.prototype.IsDate = function () {
+    return this && this.toString() != 'Invalid date' && this.toString().indexOf('0001-01-01') == -1;
 };
 
 String.prototype.numberify = function () {
