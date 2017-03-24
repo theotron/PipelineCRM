@@ -85,6 +85,15 @@ namespace GrowCreate.PipelineCRM.Config
             }
         }
 
+        [ConfigurationProperty("memberType", IsRequired = true)]
+        public string MemberType
+        {
+            get
+            {
+                return (string)this["memberType"];
+            }
+        }
+
         [ConfigurationProperty("useBoard", DefaultValue = true, IsRequired = true)]
         public bool UseBoard
         {
