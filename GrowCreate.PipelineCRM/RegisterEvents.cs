@@ -102,6 +102,8 @@ namespace GrowCreate.PipelineCRM
             {
                 LogHelper.Info(MethodBase.GetCurrentMethod().DeclaringType, "pipelineSegment not found.");
                 db.CreateTable(false, new Segment().GetType());
+                db.Execute("ALTER table pipelineSegment ALTER COLUMN CustomProps NTEXT");
+                db.Execute("ALTER table pipelineSegment ALTER COLUMN CriteriaProps NTEXT");
             }
 
             if (!db.TableExist("pipelineSegmentType"))
