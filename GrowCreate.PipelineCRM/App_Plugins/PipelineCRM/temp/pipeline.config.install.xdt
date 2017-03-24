@@ -3,6 +3,7 @@
   <appSettings
     useBoard = "true"
     createMembers = "true"
+    memberType = "Member"
     pageSize = "50"
     opportunityDocTypes = "pipelineMain"
     contactDocTypes = "pipelineContact"
@@ -10,8 +11,7 @@
     segmentDocTypes = "pipelineSegment"
     digestTime = "7"
     digestSubject = "{0}'s digest for {1}"
-    digestSender = "no-reply@website.com"
-    
+    digestSender = "no-reply@website.com"    
     trackUser = "true"
     trackHistory = "true"
     userTrackingCookie = "PipelineContactId"

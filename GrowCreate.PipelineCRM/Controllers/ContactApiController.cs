@@ -202,12 +202,13 @@ namespace GrowCreate.PipelineCRM.Controllers
         public void CreateMember(Contact contact, bool approved = true)
         {
             bool createMembers = PipelineConfig.GetConfig().AppSettings.CreateMembers;
+            string memberType = PipelineConfig.GetConfig().AppSettings.MemberType;
             if (createMembers)
             {
                 var memberService = UmbracoContext.Application.Services.MemberService;
                 if (memberService.GetByEmail(contact.Email) == null)
                 {
-                    var newMember = memberService.CreateMemberWithIdentity(contact.Email, contact.Email, contact.Name, "Member");
+                    var newMember = memberService.CreateMemberWithIdentity(contact.Email, contact.Email, contact.Name, memberType);
                     newMember.RawPasswordValue = RandomPassword();
                     newMember.IsApproved = !approved;
                     memberService.Save(newMember);
