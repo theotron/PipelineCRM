@@ -12,6 +12,7 @@ namespace GrowCreate.PipelineCRM.SegmentCriteria
         string Name { get; }
         string Description { get; }
         string ConfigDocType { get; }
-        IEnumerable<Contact> GetContacts(int SegmentId);
+        IEnumerable<Contact> GetContacts(Segment segment);
+        bool VisitorInSegment(Segment segment);
     }
 }

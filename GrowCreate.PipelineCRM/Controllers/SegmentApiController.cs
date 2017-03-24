@@ -90,13 +90,19 @@ namespace GrowCreate.PipelineCRM.Controllers
         public IEnumerable<string> GetCriteria()
         {
             return SegmentCriteriaService.GetSegmentCriteria().Select(x => x.Name).ToList();
-        }      
+        }
 
         public IEnumerable<Contact> GetContacts(int id, string criteria = "")
         {
-            criteria = !string.IsNullOrEmpty(criteria) ? criteria : GetById(id).Criteria;
+            var segment = GetById(id);
+            return GetContacts(segment, criteria);
+        }
+
+        public IEnumerable<Contact> GetContacts(Segment segment, string criteria = "")
+        {
+            criteria = !string.IsNullOrEmpty(criteria) ? criteria : segment.Criteria;
             var _criteria = SegmentCriteriaService.GetSegmentCriteria().SingleOrDefault(x => x.Name == criteria);
-            return _criteria.GetContacts(id);
+            return _criteria.GetContacts(segment);
         }
 
         public Segment GetByName(string name)

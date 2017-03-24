@@ -15,14 +15,18 @@ namespace GrowCreate.PipelineCRM.SegmentCriteria
 
         public string ConfigDocType => "";
 
-        public IEnumerable<Contact> GetContacts(int Id)
+        public IEnumerable<Contact> GetContacts(Segment segment)
         {
-            var segment = new SegmentService().GetById(Id);
             return new OrganisationService()
                 .GetByIds(segment.OrganisationIds)
                 .Select(x => new ContactService().GetByOrganisationId(x.Id))
                 .SelectMany(x => x)
                 .Distinct();
+        }
+
+        public bool VisitorInSegment(Segment segment)
+        {
+            return false;
         }
     }
 }
