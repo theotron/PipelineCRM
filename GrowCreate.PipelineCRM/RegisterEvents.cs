@@ -98,7 +98,7 @@ namespace GrowCreate.PipelineCRM
             }
 
             // install tables for fresh installations
-            if (!db.TableExist("pipelineSegments"))
+            if (!db.TableExist("pipelineSegment"))
             {
                 LogHelper.Info(MethodBase.GetCurrentMethod().DeclaringType, "pipelineSegment not found.");
                 db.CreateTable(false, new Segment().GetType());
