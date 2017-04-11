@@ -29,7 +29,7 @@ namespace GrowCreate.PipelineCRM
                 db.CreateTable(false, new Contact().GetType());
 
                 // set max lengths as petapoco decoration was deprecated: https://our.umbraco.org/forum/developers/extending-umbraco/66609-umbracocorepersistence-ntext-deprecated-nvarchar-max
-                db.Execute("ALTER table pipelineContact ALTER COLUMN CustomProps NTEXT");
+                db.Execute("ALTER table pipelineContact ALTER COLUMN CustomProps nvarchar(max)");
 
             }
 
@@ -46,7 +46,7 @@ namespace GrowCreate.PipelineCRM
             {
                 LogHelper.Info(MethodBase.GetCurrentMethod().DeclaringType, "pipelineOrganisation not found.");
                 db.CreateTable(false, new Organisation().GetType());
-                db.Execute("ALTER table pipelineOrganisation ALTER COLUMN CustomProps NTEXT");
+                db.Execute("ALTER table pipelineOrganisation ALTER COLUMN CustomProps nvarchar(max)");
             }
             if (!db.TableExist("pipelineOrganisationType"))
             {
@@ -60,7 +60,7 @@ namespace GrowCreate.PipelineCRM
             {
                 LogHelper.Info(MethodBase.GetCurrentMethod().DeclaringType, "pipelinePipeline not found.");
                 db.CreateTable(false, new Pipeline().GetType());
-                db.Execute("ALTER table pipelinePipeline ALTER COLUMN CustomProps NTEXT");
+                db.Execute("ALTER table pipelinePipeline ALTER COLUMN CustomProps nvarchar(max)");
             }
             if (!db.TableExist("pipelineLabel"))
             {
@@ -102,8 +102,8 @@ namespace GrowCreate.PipelineCRM
             {
                 LogHelper.Info(MethodBase.GetCurrentMethod().DeclaringType, "pipelineSegment not found.");
                 db.CreateTable(false, new Segment().GetType());
-                db.Execute("ALTER table pipelineSegment ALTER COLUMN CustomProps NTEXT");
-                db.Execute("ALTER table pipelineSegment ALTER COLUMN CriteriaProps NTEXT");
+                db.Execute("ALTER table pipelineSegment ALTER COLUMN CustomProps nvarchar(max)");
+                db.Execute("ALTER table pipelineSegment ALTER COLUMN CriteriaProps nvarchar(max)");
             }
 
             if (!db.TableExist("pipelineSegmentType"))
