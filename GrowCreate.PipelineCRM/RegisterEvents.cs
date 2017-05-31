@@ -126,6 +126,15 @@ namespace GrowCreate.PipelineCRM
                 File.Copy(HttpContext.Current.Server.MapPath("/App_plugins/PipelineCRM/PipelineCRM-icon.png"),
                     HttpContext.Current.Server.MapPath("/umbraco/images/tray/PipelineCRM-icon.png"));
 
+            // v1.08 Add Segment Priority column
+            db.Execute(@"
+                IF COL_LENGTH('pipelineSegment', 'Priority') IS NULL
+                BEGIN
+                    ALTER TABLE pipelineSegment
+                    ADD Priority INT
+                END
+            ");
+
             // update tables for upgrades                        
             // note: SQL CE doesn't support IF :(
             /*db.Execute(@"                

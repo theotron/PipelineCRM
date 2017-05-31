@@ -53,6 +53,10 @@
                         <select ng-model="segment.Criteria" ng-options="criteria as criteria for criteria in segmentCriteria" ng-change="getCriteriaProps()"></select>
                     </umb-control-group>
 
+                    <umb-control-group label="@pipeline_priority" description="@pipeline_priorityHelp">
+                        <input type="number" class="umb-editor umb-textstring" ng-model="segment.Priority" ng-required />
+                    </umb-control-group>
+
                     <umb-control-group label="@pipeline_contacts" description="@pipeline_contactsHelp" ng-if="segment.Criteria == 'Select contacts'">
                         <ul class="unstyled list-icons">
                             <li ng-repeat="contact in segment.Contacts">

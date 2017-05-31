@@ -101,6 +101,8 @@
 
     <key alias="criteria">Criteria</key>
     <key alias="criteriaHelp">Select segment criteria</key>
+    <key alias="priority">Priority</key>
+    <key alias="priorityHelp">Priority score for users in multiple segments</key>
     <key alias="preview">Preview</key>
     <key alias="previewHelp">Current contacts in this segment</key>
 

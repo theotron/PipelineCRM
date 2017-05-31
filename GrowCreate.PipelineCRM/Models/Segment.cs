@@ -17,6 +17,7 @@ namespace GrowCreate.PipelineCRM.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+        public int Priority { get; set; }
         public string Criteria { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]

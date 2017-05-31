@@ -27,8 +27,8 @@
                 <tr>
                     <th style="width:25px"><input type="checkbox" ng-model="isSelectedAll" ng-click="selectAll()" /></th>
                     <th ng-click="order('Name')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="!predicate || predicate == 'Name'"></i><localize key="name"></localize></th>
-                    <th ng-click="order('Website')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Website'"></i><localize key="pipeline_website"></localize></th>
-                    <th ng-click="order('Email')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Email'"></i><localize key="email"></localize></th>
+                    <th ng-click="order('Criteria')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Criteria'"></i><localize key="pipeline_website"></localize></th>
+                    <th ng-click="order('Priority')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'Priority'"></i><localize key="pipeline_priority"></localize></th>
                     <th ng-click="order('DateUpdated')"><i class="icon" ng-class="!reverse ? 'icon-navigation-down' : 'icon-navigation-up'" ng-show="predicate == 'DateUpdated'"></i><localize key="content_updateDate"></localize></th>
                 </tr>
             </thead>
@@ -39,8 +39,8 @@
                         <input type="checkbox" ng-model="segment.selected" ng-class="{ 'checked' : segment.selected }" />
                     </td>
                     <td><a href="#/pipelineCrm/pipelineCrmTree/edit.segment/{{ segment.Id }}">{{ segment.Name }}</a></td>
-                    <td><a href="{{ segment.Website.indexOf('http') > -1 ? '' : 'http://' }}{{ segment.Website }}" target="_blank">{{ segment.Website }}</a></td>
-                    <td>{{ segment.Email }}</td>
+                    <td>{{ segment.Criteria }}</td>
+                    <td>{{ segment.Priority }}</td>
                     <td>{{ segment.DateUpdated | date : 'dd/MM/yyyy' }}</td>
                 </tr>
                 <tr ng-if="segment.Obscured">
