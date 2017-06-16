@@ -25,7 +25,7 @@ gulp.task('pack-pipeline', function() {
 				.on('end', resolve);
 		}),
 	]).then(function() {
-		exec('nuget pack Nuget\Package.nuspec -verbose', function(error, stdout, stderr) {
+		exec('nuget pack Nuget/Package.nuspec -verbosity detailed', function(error, stdout, stderr) {
 			console.log(stdout);
 		});
 	});
