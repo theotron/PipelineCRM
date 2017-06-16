@@ -59,7 +59,8 @@ angular.module("umbraco").controller("Pipeline.PipelineEditController",
 	            pickDate: true,
 	            pickTime: false,
 	            pick12HourFormat: false,
-	            format: "DD-MM-YYYY",
+	            useSeconds: false,
+	            format: "YYYY-MM-DD"
 	        }
 	    };
 
@@ -1501,9 +1502,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                     callback: function () {
 
                         taskResource.deleteById(taskId).then(function (task) {
-                            var tasks = $scope.tasks,
-                                idx = _.findWhere(tasks, { Id: taskId });
-                            tasks.splice(idx, 1);
+                            $scope.tasks = _.without($scope.tasks, _.findWhere($scope.tasks, { Id: taskId }));
                             $scope.splitTimeline();
                             notificationsService.success("OK", "Task has been deleted");
                         });
@@ -1863,22 +1862,29 @@ angular.module("umbraco").controller("Pipeline.Timeline",
                 config: {
                     pickDate: true,
                     pickTime: false,
-                    format: "DD-MM-YYYY"
+                    pick12HourFormat: false,
+                    useSeconds: false,
+                    format: "YYYY-MM-DD"
                 },
                 value: ''
             };
 
             $scope.taskDatepicker = $scope.dialogData.DateDue && $scope.dialogData.DateDue.toString().IsDate() ?
-                angular.extend({}, $scope.datePickerConfig, { value:moment.utc(new Date($scope.dialogData.DateDue)) }) : $scope.datePickerConfig;
+                angular.extend({}, $scope.datePickerConfig, { value:moment($scope.dialogData.DateDue) }) : $scope.datePickerConfig;
 
             $scope.reminderDatepicker = $scope.dialogData.Reminder && $scope.dialogData.Reminder.toString().IsDate() ?
-                angular.extend({}, $scope.datePickerConfig, { value: moment.utc(new Date($scope.dialogData.Reminder)) }) : $scope.datePickerConfig; 
+                angular.extend({}, $scope.datePickerConfig, { value: moment($scope.dialogData.Reminder) }) : $scope.datePickerConfig; 
 
-            $scope.presubmit = function () {
-                $scope.dialogData.DateDue = new Date($scope.isTask ? moment.utc(new Date($scope.taskDatepicker.value)) : '');
+            $scope.presubmit = function () { 
+                $scope.dialogData.DateDue = new Date($scope.isTask && $scope.taskDatepicker.value ? moment.utc(new Date($scope.taskDatepicker.value)) : '');
                 $scope.dialogData.Reminder = new Date($scope.isTask && $scope.reminderDatepicker.value ? moment.utc(new Date($scope.reminderDatepicker.value)) : '');
-                $scope.dialogData.Overdue = moment().diff($scope.dialogData.DateDue, 'days');
-                console.log($scope.dialogData);
+
+                $scope.isTask = false;
+                if ($scope.dialogData.DateDue && $scope.dialogData.DateDue.toString().IsDate()) {
+                    $scope.dialogData.Overdue = moment().diff($scope.dialogData.DateDue, 'days');
+                    $scope.isTask = true;
+                }
+                
                 $scope.submit($scope.dialogData);
             };
 

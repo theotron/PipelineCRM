@@ -46,7 +46,7 @@ namespace GrowCreate.PipelineCRM.SurfaceControllers
                 var notifactions = CollectNotifications();
                 string notificationEmailBody = PipelineConfig.GetConfig().DigestBody.InnerHtml;                
                 string sender = PipelineConfig.GetConfig().AppSettings.DigestSender;
-                string baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/umbraco#/pipelineCrm/";                
+                string baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/umbraco/#/pipelineCrm/pipelineCrmTree/edit/";                
 
                 foreach (var notification in notifactions)
                 {
