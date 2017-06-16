@@ -1620,12 +1620,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	                status.totalValue = sum;
 
 	            });
-
-	            //remove unassigned if none found
-	            if (!_.findWhere($scope.pipelines, { Archived: false, StatusId: 0 }) && $scope.Statuses[0].Id == -1) {
-	                $scope.Statuses.shift();
-	            }
-
+	            
 	            if (!$scope.$$phase)
 	                $scope.$apply();
 	        }

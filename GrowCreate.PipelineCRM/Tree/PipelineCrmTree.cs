@@ -194,7 +194,7 @@ namespace GrowCreate.PipelineCRM.Trees
                     "0",
                     id,
                     queryStrings,
-                    GetTranslation("pipeline/none"),
+                    GetTranslation("pipeline/unassigned"),
                     "icon-dashboard",
                     false,  
                     "/pipelineCrm/pipelineCrmTree/browse/-2"
@@ -225,7 +225,7 @@ namespace GrowCreate.PipelineCRM.Trees
                     "0",
                     id,
                     queryStrings,
-                    GetTranslation("pipeline/none"),
+                    GetTranslation("pipeline/unassigned"),
                     "icon-company",
                     false,
                     mainRoute + "/organisations/-2"
@@ -255,7 +255,7 @@ namespace GrowCreate.PipelineCRM.Trees
                     "0",
                     id,
                     queryStrings,
-                    GetTranslation("pipeline/none"),
+                    GetTranslation("pipeline/unassigned"),
                     "icon-user",
                     false,
                     mainRoute + "/contacts/-2"
