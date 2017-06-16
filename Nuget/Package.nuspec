@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>PipelineCRM</id>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <authors>Theo Paraskevopoulos</authors>
     <owners>GrowCreate</owners>
     <projectUrl>http://growcreate.co.uk</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A CRM package for the Umbraco 7 back-office</description>
-    <releaseNotes>Fixes SQL 2016 support</releaseNotes>
+    <releaseNotes>Adds Segments priority</releaseNotes>
     <copyright>GrowCreate Limited</copyright>
     <tags>Umbraco CRM content management system GrowCreate</tags>
     <licenseUrl>http://www.growcreate.co.uk/pipeline-crm-eula/</licenseUrl>
