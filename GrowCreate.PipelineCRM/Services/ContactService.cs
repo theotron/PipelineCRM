@@ -132,7 +132,7 @@ namespace GrowCreate.PipelineCRM.Services
 
         public IEnumerable<Contact> GetByOrganisationId(int OrganisationId, bool getLinks = true)
         {
-            var query = new Sql().Select("*").From("pipelineContact").Where<Contact>(x => x.OrganisationIds != "" && x.OrganisationIds.Contains(OrganisationId.ToString()));
+            var query = new Sql().Select("*").From("pipelineContact").Where<Contact>(x => x.OrganisationIds != "" && (x.OrganisationIds.Contains("," + OrganisationId.ToString() + ",") || x.OrganisationIds == OrganisationId.ToString()));
             var contacts = DbService.db().Fetch<Contact>(query);
             if (getLinks)
             {

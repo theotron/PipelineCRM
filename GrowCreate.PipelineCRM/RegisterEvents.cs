@@ -12,6 +12,7 @@ using GrowCreate.PipelineCRM.Controllers;
 using System;
 using System.IO;
 using System.Web.Configuration;
+using GrowCreate.PipelineCRM.Services;
 
 namespace GrowCreate.PipelineCRM
 {
@@ -19,7 +20,7 @@ namespace GrowCreate.PipelineCRM
     {
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            var db = applicationContext.DatabaseContext.Database;
+            var db = DbService.db();
 
             // install tables for fresh installations
 
