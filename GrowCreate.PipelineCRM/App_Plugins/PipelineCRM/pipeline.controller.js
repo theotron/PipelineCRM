@@ -1593,7 +1593,7 @@ angular.module("umbraco").controller("Pipeline.Timeline",
 	        $scope.loadedData = false;
 	        $scope.CurrentPage = $scope.CurrentPage + 1;
 
-	        pipelineResource.getPaged($scope.CurrentPage,'','','',0).then(function (response) {
+            pipelineResource.getPaged($scope.CurrentPage,'DateUpdated','desc','',0).then(function (response) {
 	            $scope.TotalPages = response.data.TotalPages;
 	            $scope.ItemsPerPage = response.data.ItemsPerPage;
 	            $scope.TotalItems = response.data.TotalItems;

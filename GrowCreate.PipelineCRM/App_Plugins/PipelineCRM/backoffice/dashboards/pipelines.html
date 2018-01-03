@@ -1,5 +1,5 @@
 ﻿<div ng-controller="Pipeline.Dashboards.Pipelines" ng-show="loaded" class="pipeline">
-    <div class="pipeline-board">
+    <div class="pipeline-board" ng-style="{'width': (Statuses.length * 282 + 10) + 'px'}">
         <h5 class="pagination" ng-if="TotalPages > 1">
             <span ng-if="loadedData">
                 <localize key="pipeline_opportunities"></localize> {{ PageItems }} of {{ TotalItems }}. <a href="" ng-click="loadPage()" ng-if="CurrentPage < TotalPages">Load the next page?</a>
