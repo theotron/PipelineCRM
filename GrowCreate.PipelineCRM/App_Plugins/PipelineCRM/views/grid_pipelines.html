@@ -42,8 +42,8 @@
                         <input type="checkbox" ng-model="pipeline.selected" ng-class="{ 'checked' : pipeline.selected }" />
                     </td>
                     <td><a href="#/pipelineCrm/pipelineCrmTree/edit/{{ pipeline.Id }}">{{ pipeline.Name }}</a></td>
-                    <td><a ng-if="pipeline.ContactId" href="#/pipelineCrm/pipelineCrmTree/contact.edit/{{ pipeline.ContactId }}">{{ pipeline.Contact.Name }}</a>&nbsp;</td>
-                    <td><a ng-if="pipeline.OrganisationId" href="#/pipelineCrm/pipelineCrmTree/organisation.edit/{{ pipeline.OrganisationId }}">{{ pipeline.Organisation.Name }}</a>&nbsp;</td>
+                    <td><a ng-if="pipeline.ContactId" href="#/pipelineCrm/pipelineCrmTree/edit.contact/{{ pipeline.ContactId }}">{{ pipeline.Contact.Name }}</a>&nbsp;</td>
+                    <td><a ng-if="pipeline.OrganisationId" href="#/pipelineCrm/pipelineCrmTree/edit.organisation/{{ pipeline.OrganisationId }}">{{ pipeline.Organisation.Name }}</a>&nbsp;</td>
                     <td>{{ pipeline.Value | currency }}</td>
                     <td>{{ pipeline.Probability }}%</td>
                     <td>{{ pipeline | adjustedValue | currency }}</td>
