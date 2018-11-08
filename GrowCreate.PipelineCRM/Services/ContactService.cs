@@ -11,6 +11,7 @@ using System.Web;
 using Umbraco.Core.Persistence;
 using Umbraco.Web;
 using Umbraco.Core;
+using System.Linq.Expressions;
 
 namespace GrowCreate.PipelineCRM.Services
 {
@@ -132,8 +133,7 @@ namespace GrowCreate.PipelineCRM.Services
 
         public IEnumerable<Contact> GetByOrganisationId(int OrganisationId, bool getLinks = true)
         {
-            var query = new Sql().Select("*").From("pipelineContact").Where<Contact>(x => x.OrganisationIds != "" && (x.OrganisationIds.Contains("," + OrganisationId.ToString() + ",") || x.OrganisationIds == OrganisationId.ToString()));
-            var contacts = DbService.db().Fetch<Contact>(query);
+            var contacts = DbService.db().Fetch<Contact>(string.Format("SELECT * FROM [dbo].[pipelineContact] WHERE OrganisationIds IS NOT NULL AND OrganisationIds = '{0}' OR OrganisationIds LIKE '%{0},%' OR OrganisationIds LIKE '%,{0},%'", OrganisationId.ToString()));
             if (getLinks)
             {
                 for (int i = 0; i < contacts.Count(); i++)
